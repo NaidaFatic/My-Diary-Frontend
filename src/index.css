@@ -1,7 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url('https://fonts.googleapis.com/css2?family=Grand+Hotel&family=Lato:wght@300;400;700&family=Montserrat:wght@400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Grand+Hotel&family=Lato:wght@300;400;700&family=Montserrat:wght@400;700&display=swap");
 
 body {
   margin: 0;
@@ -35,14 +35,18 @@ h5 {
   font-style: normal;
 }
 
-.logo{
-  font-family: 'Grand Hotel', cursive;
-  font-size:  calc(3rem + 1.5vw)!important;
+.logo {
+  font-family: "Grand Hotel", cursive;
+  font-size: calc(3rem + 1.5vw) !important;
   font-weight: 400 !important;
 }
 
 .fw-700 {
   font-weight: 700 !important;
+}
+
+.fw-400 {
+  font-weight: 400 !important;
 }
 
 a {
@@ -67,21 +71,26 @@ a {
   max-width: 670px !important;
 }
 
-  /* 
+/* 
     TYPOGRAFY 
   */
-  h1 {
-    font-size: calc(2rem + .7vw);
-  }
-  h2 {
-    font-size: calc(1.3rem + .7vw);
-  }
-  h3 {
-    font-size: calc(1rem + .7vw);
-  }
-  h4 {
-    font-size: calc(0.8rem + .7vw);
-  }
+h1 {
+  font-size: calc(2rem + 0.7vw);
+}
+h2 {
+  font-size: calc(1.3rem + 0.7vw);
+}
+h3 {
+  font-size: calc(1rem + 0.7vw);
+}
+h4 {
+  font-size: calc(0.8rem + 0.7vw);
+}
+
+/* PADDING */
+.pb-150 {
+  padding-bottom: 150px;
+}
 
 @media screen and (min-width: 767px) {
   input::placeholder {
@@ -89,14 +98,13 @@ a {
     font-weight: 300;
     font-size: 1.4rem;
   }
-  
 }
 
 @media screen and (max-width: 767px) {
- .fw {
-  margin-inline: auto;
-  padding-inline: 20px;
-}
+  .fw {
+    margin-inline: auto;
+    padding-inline: 20px;
+  }
 }
 
 form input {
@@ -104,11 +112,14 @@ form input {
   padding: 10px;
   border: none;
   background: #fffefe;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+  border-bottom: solid rgb(106, 106, 106) 2px;
 }
 
 input[type="submit"] {
-  background: rgba(17, 75, 95, 0.72);
+  color: black;
+  border: none;
+  background: #fffefe;
+  border-bottom: solid rgb(106, 106, 106) 2px;
 }
 .col {
   max-width: fit-content !important;
