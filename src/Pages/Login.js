@@ -1,5 +1,6 @@
 import "./login.css";
 import logo from "../img/logo-sm.png";
+import { NavLink } from "react-router-dom";
 
 function Login() {
   return (
@@ -15,7 +16,7 @@ function Login() {
         </div>
       </div>
       <div className="login_form_container self-center basis-2/5">
-        <form className="mx-auto w-410 mx-5">
+        <form className="mx-auto mx-5">
           <img src={logo} height="45" width="406" />
           <h2 className="pb-150">Log in</h2>
           <label>
@@ -27,8 +28,8 @@ function Login() {
             <input type="password" name="password" placeholder="strongpassword" />
           </label>
           <div className="flex justify-between">
-            <input type="submit" value="Login" className="mt-5 mb-3 active login" />
-            <input type="submit" value="Register" className="mt-5 mb-3" />
+            <NavLink to="/feed"><input type="submit" value="Login" className="mt-5 mb-3 active login" /></NavLink>
+            <NavLink to="/feed"><input type="submit" value="Register" className="mt-5 mb-3" /></NavLink>
           </div>
         </form>
       </div>

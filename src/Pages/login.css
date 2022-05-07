@@ -58,7 +58,12 @@ input[type="submit"] {
   cursor: pointer;
 }
 
-.active {
+.login_form_container .active {
+  background: rgba(17, 75, 95, 0.72) !important;
+  color: white !important;
+}
+
+input[type="submit"]:hover {
   background: rgba(17, 75, 95, 0.72) !important;
   color: white !important;
 }
@@ -71,7 +76,7 @@ h4 {
   display: none;
 }
 
-img {
+.login_form_container img {
   display: none;
 }
 .login {

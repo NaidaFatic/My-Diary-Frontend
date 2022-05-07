@@ -60,7 +60,9 @@ a {
 /*
     SCREEN SIZE
   */
-
+.w-1740 {
+  max-width: 1740px !important;
+}
 .w-1200 {
   max-width: 1200px !important;
 }
@@ -69,6 +71,15 @@ a {
 }
 .w-670 {
   max-width: 670px !important;
+}
+.w-870 {
+  max-width: 870px !important;
+}
+.w-970 {
+  max-width: 970px !important;
+}
+.w-370 {
+  max-width: 370px !important;
 }
 
 /* 
@@ -87,6 +98,9 @@ h4 {
   font-size: calc(0.8rem + 0.7vw);
 }
 
+p {
+  font-size: calc(1rem + 0.7vw);
+}
 /* PADDING */
 .pb-150 {
   padding-bottom: 150px;
