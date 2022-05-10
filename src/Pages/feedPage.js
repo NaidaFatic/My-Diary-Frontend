@@ -4,7 +4,8 @@ import logo from "../img/branding.png";
 import { IconUser, IconHeart, IconMessage2 } from '@tabler/icons';
 
 
-function FeedPage() {
+function FeedPage(props) {
+    props.setCurrentPage("FEED");
     return (
         <main>
             <div className="fw post w-1740">
