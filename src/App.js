@@ -3,6 +3,7 @@ import Login from "./Pages/Login";
 import FeedPage from "./Pages/feedPage";
 import Header from "./Pages/header";
 import React, { useState } from 'react';
+import DiaryPage from "./Pages/diarypage";
 
 function App() {
   const [currentPage, setCurrentPage] = useState("LOGIN");
@@ -14,6 +15,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Login setCurrentPage={setCurrentPage} />} />
           <Route path="/feed" element={<FeedPage setCurrentPage={setCurrentPage} />} />
+          <Route path="/diary" element={<DiaryPage setCurrentPage={setCurrentPage} />} />
         </Routes>
       </div>
     </BrowserRouter>
