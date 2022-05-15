@@ -1,0 +1,12 @@
+.rbc-month-view {
+  z-index: -1;
+}
+
+@media screen and (max-width: 768px) {
+  .rbc-toolbar {
+    display: grid !important;
+  }
+  .rbc-btn-group {
+    margin: auto;
+  }
+}
