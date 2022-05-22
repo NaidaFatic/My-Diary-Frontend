@@ -4,7 +4,7 @@ import FeedPage from "./Pages/feedPage";
 import Header from "./Pages/header";
 import React, { useState } from 'react';
 import DiaryPage from "./Pages/diarypage";
-import ProfilePage from "./Pages/profile";
+import ProfilePage from "./Pages/profilepage";
 
 function App() {
   const [currentPage, setCurrentPage] = useState("LOGIN");
