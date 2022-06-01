@@ -4,8 +4,8 @@
 
 .post {
   border: 1px solid #e5e4e4;
-  padding-top: calc(5.3rem + 1.5vw);
-  margin-bottom: 100px;
+  padding-block: 20px;
+  margin-bottom: 20px;
 }
 
 .post-img {
@@ -19,8 +19,8 @@
 }
 
 .user-img {
-  width: calc(1.3rem + 1.5vw);
-  height: calc(1.3rem + 1.5vw);
+  width: calc(1.5rem + 1vw);
+  height: auto;
   background: #ebebeb;
   border-radius: 100%;
 }
@@ -41,10 +41,53 @@
   padding-top: 20px;
 }
 
-@media screen and (min-width: 1024px) {
-  .post-desc,
-  .post-name {
-    text-align: right;
-    padding-top: 10px;
-  }
+.post-desc p {
+  font-size: calc(0.5rem + 0.5vw);
+}
+
+.like {
+  fill: red;
+  color: red;
+}
+
+.dislike {
+  fill: none;
+  color: black;
+}
+
+.comment {
+  fill: #114b5f;
+  color: #114b5f;
+}
+
+.uncomment {
+  fill: none;
+  color: black;
+}
+
+.showComment {
+  opacity: 1;
+  height: auto;
+  transition: opacity 1s ease-out;
+}
+
+.notShowComment {
+  transition: opacity 1s ease-out;
+  opacity: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+input {
+  width: -webkit-fill-available;
+  padding: 10px;
+  border-bottom: solid rgb(106, 106, 106) 2px;
+}
+
+input::placeholder {
+  font-size: 1rem;
+}
+
+img {
+  margin: auto;
 }
