@@ -1,0 +1,52 @@
+.profile {
+  border: 1px solid #e5e4e4;
+  padding-block: 20px;
+  margin-bottom: 20px;
+}
+
+.user-img {
+  width: calc(2.5rem + 1vw);
+  height: auto;
+  background: #ebebeb;
+  border-radius: 100%;
+  margin-right: 5%;
+}
+
+.profile section {
+  margin: 20px;
+}
+
+.profile .posts div div {
+  max-width: 425px;
+  margin: auto;
+  height: 220px;
+  background-color: #c4c4c4;
+  background-position: center;
+  background-size: contain;
+}
+
+.profile .posts div .postName {
+  font-size: calc(1rem + 0.5vw);
+  padding: 5px;
+  padding-top: 20px;
+  height: fit-content;
+  visibility: hidden;
+  opacity: 0;
+  overflow: hidden;
+  text-align: center;
+  /* transition effect. not necessary */
+  transition: opacity 0.2s, visibility 0.2s;
+}
+
+.profile .posts div div:hover .postName {
+  visibility: visible;
+  opacity: 1;
+}
+
+.postDescription {
+  padding: 5px;
+}
+
+.editPost {
+  margin: 5px;
+}
