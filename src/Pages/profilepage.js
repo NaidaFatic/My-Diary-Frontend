@@ -1,8 +1,16 @@
 import "./profilepage.css";
+import Background from "../img/branding.png";
+import Background1 from "../img/logo-sm.png";
 import { IconUser, IconEdit } from "@tabler/icons";
 
 function ProfilePage(props) {
     props.setCurrentPage("PROFILE");
+    var backgroundImageStyle = {
+        backgroundImage: `url(${Background})`
+    };
+    var backgroundImageStyle1 = {
+        backgroundImage: `url(${Background1})`
+    };
 
     return (
         <main className="pt:20">
@@ -22,9 +30,9 @@ function ProfilePage(props) {
                 <hr />
                 <section className="grid grid-cols-4 gap-4 posts">
                     <div>
-                        <div className="flex flex-col">
+                        <div className="flex flex-col" style={backgroundImageStyle}>
                             <p className="postName grow">
-                                Post 1 🙄 dslkj salijsdlias jdiosajdoisjdoi
+                                Post 1 🙄
                             </p>
                             <IconEdit className="editPost flex-none self-end" />
                         </div>
@@ -32,9 +40,9 @@ function ProfilePage(props) {
 
                     </div>
                     <div>
-                        <div className="flex flex-col">
+                        <div className="flex flex-col" style={backgroundImageStyle1}>
                             <p className="postName grow">
-                                Post 1 😋 dslkj salijsdlias jdiosajdoisjdoi
+                                Post 2 😋
                             </p>
                             <IconEdit className="editPost flex-none self-end" />
                         </div>
@@ -42,18 +50,27 @@ function ProfilePage(props) {
 
                     </div>
                     <div>
-                        <div className="flex flex-col">
+                        <div className="flex flex-col" style={backgroundImageStyle}>
                             <p className="postName grow">
-                                Post 1 😋 dslkj salijsdlias jdiosajdoisjdoi dslkj salijsdlias jdiosajdoisjdoi
+                                Post 3 😋
                             </p>
                             <IconEdit className="editPost flex-none self-end" />
                         </div>
-                        <p className="postDescription">Desciption Desciption Desciption Desciption</p>
+                        <p className="postDescription">Desciption</p>
                     </div>
                     <div>
-                        <div className="flex flex-col">
+                        <div className="flex flex-col" style={backgroundImageStyle1}>
                             <p className="postName grow">
-                                Post 1 😋 dslkj salijsdlias jdiosajdoisjdoi
+                                Post 4 😋
+                            </p>
+                            <IconEdit className="editPost flex-none self-end" />
+                        </div>
+                        <p className="postDescription">Desciption</p>
+
+                    </div> <div>
+                        <div className="flex flex-col" style={backgroundImageStyle}>
+                            <p className="postName grow">
+                                Post 5 😋
                             </p>
                             <IconEdit className="editPost flex-none self-end" />
                         </div>
@@ -61,8 +78,8 @@ function ProfilePage(props) {
 
                     </div>
                 </section>
-            </div>
-        </main>
+            </div >
+        </main >
     );
 }
 

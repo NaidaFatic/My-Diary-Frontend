@@ -21,6 +21,8 @@
   margin: auto;
   height: 220px;
   background-color: #c4c4c4;
+  background-position: center;
+  background-size: contain;
 }
 
 .profile .posts div .postName {
