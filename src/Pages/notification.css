@@ -1,0 +1,64 @@
+.m-auto {
+  margin: auto;
+}
+
+.post {
+  border: 1px solid #e5e4e4;
+  padding-block: 0px;
+  margin-bottom: 20px;
+}
+
+.post-img {
+  padding: 10px;
+}
+
+.post-img h3 {
+  letter-spacing: 0.165em;
+  margin-left: 10px;
+  overflow-wrap: anywhere;
+}
+
+.user-img {
+  width: calc(1.5rem + 1vw);
+  height: auto;
+  background: #ebebeb;
+  margin-right: 10px;
+  border-radius: 100%;
+}
+
+.post-photo {
+  background: #ebebeb;
+  max-width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+}
+.post-comment {
+  margin-block: 10px;
+}
+.post-desc,
+.post-name {
+  text-align: left;
+  padding-top: 20px;
+}
+
+.post-desc p {
+  font-size: calc(0.5rem + 0.5vw);
+}
+
+.like {
+  display: none;
+}
+
+.approve {
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: rgb(209, 238, 220);
+}
+
+.like-post span {
+  width: 50px;
+  height: 50px;
+  background-color: #d9d6d6;
+}
