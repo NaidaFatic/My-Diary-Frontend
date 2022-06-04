@@ -23,6 +23,12 @@
   background-color: #c4c4c4;
   background-position: center;
   background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.profile .posts div div:hover {
+  background-blend-mode: multiply;
 }
 
 .profile .posts div .postName {
@@ -49,4 +55,22 @@
 
 .editPost {
   margin: 5px;
+}
+
+.modal label {
+  padding-block: 20px;
+}
+
+.modal .user-img {
+  max-width: calc(5rem + 1vw);
+  height: calc(5rem + 1vw);
+  margin-right: 40px;
+}
+
+@media screen and (max-width: 768px) {
+  .modal .user-img {
+    width: calc(3rem + 1vw);
+    height: calc(3rem + 1vw);
+    margin-bottom: 40px;
+  }
 }
