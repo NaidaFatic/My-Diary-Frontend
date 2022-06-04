@@ -67,6 +67,23 @@
   margin-right: 40px;
 }
 
+.month {
+  width: 105px;
+  height: 0;
+  border-bottom: 20px solid #114b5f;
+  border-top: 22px solid #114b5f;
+  border-left: 15px solid transparent;
+  margin-block: 20px;
+  margin-left: -20px;
+}
+
+.month p {
+  color: white;
+  position: relative;
+  text-align: center;
+  right: -10px;
+  top: -19px;
+}
 @media screen and (max-width: 768px) {
   .modal .user-img {
     width: calc(3rem + 1vw);

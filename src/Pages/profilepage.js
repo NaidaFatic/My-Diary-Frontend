@@ -31,8 +31,10 @@ function ProfilePage(props) {
                     </div>
                 </section>
                 <hr />
+                <div className="month"><p>May</p></div>
                 <section className="grid md:grid-cols-4 
                 grid-cols-2 gap-4 posts">
+
                     <div>
                         <div className="flex flex-col" style={backgroundImageStyle}>
                             <p className="postName grow">
