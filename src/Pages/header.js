@@ -6,7 +6,7 @@ import { NavLink } from "react-router-dom";
 function Header() {
     return (
         <header>
-            <div className="fw w-1740 flex justify-between">
+            <div className="fw w-1740 flex justify-between z-50 relative">
                 <div className="logo">
                     Online Diary
                 </div>
