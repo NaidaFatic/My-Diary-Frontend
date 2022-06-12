@@ -8,11 +8,11 @@ import { IconUser, IconHeart, IconFlame, IconMessage2 } from '@tabler/icons';
 
 function NotificationPage(props) {
     props.setCurrentPage("NOTIF");
-    const [isLike, setIsLike] = useState(false);
+    const [isApproved, setIsApproved] = useState(false);
     var count = 0;
 
-    const like = (e) => {
-        setIsLike(!isLike);
+    const approve = (e) => {
+        setIsApproved(!isApproved);
     };
 
     return (
@@ -26,22 +26,22 @@ function NotificationPage(props) {
             </div >
             <h4 className="mx-3 mb-5 flex">Friend Requests <IconFlame style={{ fill: 'red' }} /></h4>
             <div className="post">
-                <section className="py-4">
+                <section className="py-4 notif">
                     <div className="post-img flex flex-wrap items-center">
                         <IconUser className="user-img" />
                         <h4>User Name</h4>
-                        <h4 className={`text-right grow mr-3  ${isLike ? 'like' : 'dislike'}`} onClick={like} ><span className="approve">Approve</span></h4>
+                        <h4 className={`text-right grow mr-3  ${isApproved ? 'like-notf' : 'dislike'}`} onClick={approve} ><span className="approve">Approve</span></h4>
                     </div>
                     <hr></hr>
                     <div className="post-img flex flex-wrap items-center">
                         <IconUser className="user-img" />
                         <h4>User Name</h4>
-                        <h4 className={`text-right grow mr-3  ${isLike ? 'like' : 'dislike'}`} onClick={like} ><span className="approve">Approve</span></h4>
+                        <h4 className={`text-right grow mr-3  ${isApproved ? 'like-notf' : 'dislike'}`} onClick={approve} ><span className="approve">Approve</span></h4>
                     </div>                    <hr></hr>
                     <div className="post-img flex flex-wrap items-center">
                         <IconUser className="user-img" />
                         <h4>User Name</h4>
-                        <h4 className={`text-right grow mr-3  ${isLike ? 'like' : 'dislike'}`} onClick={like} ><span className="approve">Approve</span></h4>
+                        <h4 className={`text-right grow mr-3  ${isApproved ? 'like-notfike' : 'dislike'}`} onClick={approve} ><span className="approve">Approve</span></h4>
                     </div>
                 </section>
             </div >

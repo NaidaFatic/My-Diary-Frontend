@@ -46,7 +46,7 @@
   font-size: calc(0.5rem + 0.5vw);
 }
 
-.like {
+.notif .like-notf {
   display: none;
 }
 
