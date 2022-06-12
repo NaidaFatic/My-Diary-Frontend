@@ -4,7 +4,7 @@ This is a project for the HCI course.
 
 This web site can post memories.
 Online version of the Diary.
-- ✔[[https://online-pharmacy-se2.vercel.app/login.html](https://hci-project-diary.herokuapp.com/profile)](https://hci-project-diary.herokuapp.com/) 🟢
+- ✔[My Diary](https://hci-project-diary.herokuapp.com/) 🟢
 
 Build using:
 - Node.js, tailwindcss
