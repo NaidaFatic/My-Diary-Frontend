@@ -4,7 +4,7 @@ This is a project for the HCI course.
 
 This web site can post memories.
 Online version of the Diary.
-- ✔[My Diary](https://hci-project-diary.herokuapp.com/) 🟢
+- ✔[https://hci-project-diary.herokuapp.com](https://hci-project-diary.herokuapp.com/) 🟢
 
 Build using:
 - Node.js, tailwindcss
