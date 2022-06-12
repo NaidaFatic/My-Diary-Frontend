@@ -33,14 +33,14 @@ function DiaryPage(props) {
         }}
         events={events}
     />);
-    
-    const addEvent = () =>  {
+
+    const addEvent = () => {
         events = [...events, {
             id: 4,
             color: '#FCC8B2',
             from: '2022-06-05T13:00:00+00:00',
             to: '2022-06-05T20:00:00+00:00',
-            title: 'Test title'
+            title: 'Memory from today'
         }];
         setCalEvents(<Calendar
             onClickTimeLine={(event) => {

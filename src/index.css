@@ -148,3 +148,7 @@ input:focus {
   background: #c1c1c12e;
   border-bottom: solid rgb(106, 106, 106) 2px;
 }
+
+.bg-submit {
+  background: rgba(17, 75, 95, 0.72);
+}

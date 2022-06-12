@@ -14,3 +14,21 @@
     margin: auto;
   }
 }
+
+.react-datetime-picker {
+  width: 100%;
+}
+textarea,
+input {
+  font-family: "Lato", sans-serif;
+  width: -webkit-fill-available;
+  padding: 10px;
+  border-bottom: solid rgb(106, 106, 106) 2px;
+}
+
+textarea:focus,
+input:focus {
+  outline: none;
+  background: #c1c1c12e;
+  border-bottom: solid rgb(106, 106, 106) 2px;
+}
