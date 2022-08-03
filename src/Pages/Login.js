@@ -1,12 +1,16 @@
 import "./login.css";
 import logo from "../img/logo-sm.png";
-import { NavLink } from "react-router-dom";
 import React, { useState } from 'react';
-import * as yup from "yup";
-import { Formik, Form, Field } from "formik";
+import * as Yup from "yup";
+import { Formik, Form } from "formik";
+import { Ajax } from "../utils/axios";
+import { TextField } from "../components/TextField";
+import { ToastContainer } from 'react-toastify';
+import { useAuthContext } from "../hooks/useAuthContext";
 
 function Login() {
   const [currentForm, setCurrentForm] = useState("LOGIN");
+  const { dispatch } = useAuthContext();
 
   const showRegistrationForm = (e) => {
     e.preventDefault();
@@ -17,8 +21,52 @@ function Login() {
     }
   }
 
+  function registrationFunction(values, actions) {
+    Ajax.post('owners', values, function (response) {
+      console.log(response)
+      window.localStorage.setItem('token', JSON.stringify(response));
+      dispatch({ type: 'LOGIN', payload: response.token })
+    });
+  }
+
+  function loginFunction(values, actions) {
+    Ajax.post('owners/login', values, function (response) {
+      console.log(response)
+      window.localStorage.setItem('token', JSON.stringify(response));
+      dispatch({ type: 'LOGIN', payload: response.token })
+    });
+  }
+
+  const validationForm = Yup.object().shape({
+    email: Yup.string().email('Invalid email').required('Required')
+      .min(3, 'Email too short')
+      .required('Required'),
+    password: Yup.string()
+      .min(3, 'Password too short')
+      .required('Required')
+  });
+
+  const validationFormRegister = Yup.object().shape({
+    surname: Yup.string()
+      .min(3, 'Must be at least 3 characters')
+      .required('Required'),
+    name: Yup.string()
+      .min(3, 'Must be at least 3 characters')
+      .required('Required'),
+    email: Yup.string().email('Invalid email').required('Required')
+      .min(3, 'Email too short')
+      .required('Required'),
+    password: Yup.string()
+      .min(3, 'Password too short')
+      .required('Required'),
+    confirmPassword: Yup.string()
+      .oneOf([Yup.ref('password'), null], 'Password must match')
+      .required('Confirm password is required')
+  });
+
   return (
     <div>
+      <ToastContainer />
       {currentForm === "LOGIN" &&
         <div className="login_container lg:flex flex-row">
           <div className="branding_section basis-2/3">
@@ -32,26 +80,29 @@ function Login() {
             </div>
           </div>
           <div className="login_form_container self-center basis-2/5">
-            <form className="mx-auto mx-5">
-              <img src={logo} height="45" width="406" />
-              <h2 className="pb-150">Log in</h2>
-              <label>
-                <h4>E-mail</h4>
-                <input type="email" name="email" placeholder="example@example.com" />
-              </label>
-              <label>
-                <h4>Password</h4>
-                <input type="password" name="password" placeholder="strongpassword" />
-              </label>
-              <div className="flex justify-between">
-                <NavLink to="/feed"><input type="submit" value="Login" className="mt-5 mb-3 active login" /></NavLink>
-                <button to="/feed"><input type="submit" value="Register" className="mt-5 mb-3" onClick={showRegistrationForm} /></button>
-              </div>
-            </form>
+            <Formik
+              initialValues={{ email: '', password: '' }}
+              validationSchema={validationForm}
+              onSubmit={(values, actions) => {
+                loginFunction(values, actions);
+              }}
+            >
+              <Form className="mx-auto mx-5">
+                <img src={logo} height="45" width="406" />
+                <h2 className="pb-150">Log in</h2>
+                <TextField label="Email" name="email" type="email" placeholder="example@example.com" />
+                <TextField label="Password" name="password" type="password" placeholder="strongpassword" />
+                <div className="flex justify-between">
+                  <button><input type="submit" value="Login" className="mt-5 mb-3 active login" /></button>
+                  <button><input type="submit" value="Register" className="mt-5 mb-3" onClick={showRegistrationForm} /></button>
+                </div>
+              </Form>
+            </Formik>
           </div>
         </div>
       }
-      {currentForm === "REGISTER" &&
+      {
+        currentForm === "REGISTER" &&
         <div className="login_container lg:flex flex-row">
           <div className="branding_section basis-2/3">
             <div className="branging_image">
@@ -64,34 +115,31 @@ function Login() {
             </div>
           </div>
           <div className="login_form_container self-center basis-2/5">
-            <form className="mx-auto mx-5">
-              <img src={logo} height="45" width="406" />
-              <h2 className="pb-150">Register</h2>
-              <label>
-                <h4>Name</h4>
-                <input type="text" name="firstName" placeholder="John" />
-              </label>
-              <label>
-                <h4>Surname</h4>
-                <input type="text" name="lastName" placeholder="Doe" />
-              </label>
-              <label>
-                <h4>Password</h4>
-                <input type="password" name="password" placeholder="strongpassword" />
-              </label>
-              <label>
-                <h4>E-mail</h4>
-                <input type="email" name="email" placeholder="example@example.com" />
-              </label>
-              <div className="mt-5 mb-3 flex justify-between">
-                <NavLink to="/"><input type="submit" value="Register" className="active login" /></NavLink>
-                <button to="/"><input type="submit" value="Login" onClick={showRegistrationForm} /></button>
-              </div>
-            </form>
+            <Formik
+              initialValues={{ name: '', surname: '', email: '', password: '' }}
+              validationSchema={validationFormRegister}
+              onSubmit={(values, actions) => {
+                registrationFunction(values, actions);
+              }}
+            >
+              <Form className="mx-auto mx-5">
+                <img src={logo} height="45" width="406" />
+                <h2 className="pb-150">Register</h2>
+                <TextField label="Name" name="name" type="text" placeholder="Name" />
+                <TextField label="Surname" name="surname" type="text" placeholder="Surname" />
+                <TextField label="Email" name="email" type="email" placeholder="example@example.com" />
+                <TextField label="Password" name="password" type="password" placeholder="strongpassword" />
+                <TextField label="Repeat Password" name="confirmPassword" type="password" placeholder="strongpassword" />
+                <div className="flex justify-between">
+                  <button><input type="submit" value="Register" className="mt-5 mb-3 active login" /></button>
+                  <button><input type="submit" value="Login" className="mt-5 mb-3" onClick={showRegistrationForm} /></button>
+                </div>
+              </Form>
+            </Formik>
           </div>
         </div>
       }
-    </div>
+    </div >
   );
 }
 

@@ -152,3 +152,8 @@ input:focus {
 .bg-submit {
   background: rgba(17, 75, 95, 0.72);
 }
+
+.error {
+  color: rgb(217 83 83);
+  padding-bottom: 5px;
+}
