@@ -24,7 +24,7 @@ function Login() {
   function registrationFunction(values, actions) {
     Ajax.post('owners', values, function (response) {
       console.log(response)
-      window.localStorage.setItem('token', JSON.stringify(response));
+      window.localStorage.setItem('token', response.token);
       dispatch({ type: 'LOGIN', payload: response.token })
     });
   }
@@ -32,7 +32,7 @@ function Login() {
   function loginFunction(values, actions) {
     Ajax.post('owners/login', values, function (response) {
       console.log(response)
-      window.localStorage.setItem('token', JSON.stringify(response));
+      window.localStorage.setItem('token', response.token);
       dispatch({ type: 'LOGIN', payload: response.token })
     });
   }

@@ -3,7 +3,7 @@ import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 
 export class Ajax {
-    static get() {
+    static get1() {
         // Make a request for a user with a given ID
         axios.get('/user?ID=12345')
             .then(function (response) {
@@ -38,15 +38,14 @@ export class Ajax {
             });
     }
 
-    static getAsync() {
-        // Want to use async/await? Add the `async` keyword to your outer function/method.
-        async function getUser() {
-            try {
-                const response = await axios.get('/user?ID=12345');
-                console.log(response);
-            } catch (error) {
-                console.error(error);
-            }
+    static async getAsync(api, params) {
+        try {
+            const response = await axios.get('http://localhost:8080/api/' + api, params);
+            // console.log(response.data);
+            return response.data;
+        } catch (error) {
+            console.error(error);
+            return error;
         }
     }
 
@@ -57,6 +56,28 @@ export class Ajax {
             })
             .catch(function (error) {
                 toast(error.response.data.message);
+            });
+    }
+
+    static get(api, params, callback) {
+        axios.get('http://localhost:8080/api/' + api, params)
+            .then(function (response) {
+                callback(response.data);
+            })
+            .catch(function (error) {
+                //toast(error.response.data.message);
+                console.log(error)
+            });
+    }
+
+    static put(api, params, callback) {
+        axios.put('http://localhost:8080/api/' + api, params)
+            .then(function (response) {
+                callback(response.data);
+            })
+            .catch(function (error) {
+                //toast(error.response.data.message);
+                console.log(error)
             });
     }
 }
