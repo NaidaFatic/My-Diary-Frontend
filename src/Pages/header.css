@@ -25,4 +25,5 @@ header {
   background: white;
   position: fixed;
   width: -webkit-fill-available;
+  z-index: 100;
 }
