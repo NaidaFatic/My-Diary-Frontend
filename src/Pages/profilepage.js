@@ -130,7 +130,7 @@ function ProfilePage(props) {
                                             </div>
                                             {/*body*/}
                                             <Formik
-                                                initialValues={{ name: '', surname: '', diaryName: '', status: '', age: '' }}
+                                                initialValues={{ name: '', surname: '', diaryName: '', comment: '', age: '' }}
                                                 onSubmit={(values, actions) => {
                                                     updateProfile(values, actions);
                                                 }}
@@ -142,7 +142,7 @@ function ProfilePage(props) {
                                                             <TextField label="Name" name="name" type="text" placeholder="Name" />
                                                             <TextField label="Surname" name="surname" type="text" placeholder="Surname" />
                                                             <TextField label="Diary Name" name="diaryName" type="text" placeholder="Diary Name" />
-                                                            <TextField label="Status" name="status" type="text" placeholder="Status" />
+                                                            <TextField label="Status" name="comment" type="text" placeholder="Status" />
                                                             <TextField label="Age" name="age" type="number" placeholder="Age" />
                                                         </div>
                                                     </div>

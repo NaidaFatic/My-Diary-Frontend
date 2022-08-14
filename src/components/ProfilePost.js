@@ -24,7 +24,7 @@ function ProfilePost(props) {
     useEffect(() => {
         let isMounted = true;
         setEditing(false)
-        showComment(false);
+        setIsComment(false);
         setShowModalPost(false);
         setProfileOwner((decoded.uid === props.id));
 
