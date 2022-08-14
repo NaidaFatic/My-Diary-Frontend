@@ -40,7 +40,7 @@ export class Ajax {
 
     static async getAsync(api, params) {
         try {
-            const response = await axios.get('https://my-diary-backend-api.herokuapp.com/' + api, params);
+            const response = await axios.get('https://my-diary-backend-api.herokuapp.com/api/' + api, params);
             // console.log(response.data);
             return response.data;
         } catch (error) {
@@ -50,7 +50,7 @@ export class Ajax {
     }
 
     static post(api, params, callback) {
-        axios.post('https://my-diary-backend-api.herokuapp.com/' + api, params)
+        axios.post('https://my-diary-backend-api.herokuapp.com/api/' + api, params)
             .then(function (response) {
                 callback(response.data);
             })
@@ -60,7 +60,7 @@ export class Ajax {
     }
 
     static get(api, params, callback) {
-        axios.get('https://my-diary-backend-api.herokuapp.com/' + api, params)
+        axios.get('https://my-diary-backend-api.herokuapp.com/api/' + api, params)
             .then(function (response) {
                 callback(response.data);
             })
@@ -71,7 +71,7 @@ export class Ajax {
     }
 
     static put(api, params, callback) {
-        axios.put('https://my-diary-backend-api.herokuapp.com/' + api, params)
+        axios.put('https://my-diary-backend-api.herokuapp.com/api/' + api, params)
             .then(function (response) {
                 callback(response.data);
             })
@@ -82,7 +82,7 @@ export class Ajax {
     }
 
     static delete(api, params, callback) {
-        axios.delete('https://my-diary-backend-api.herokuapp.com/' + api, params)
+        axios.delete('https://my-diary-backend-api.herokuapp.com/api/' + api, params)
             .then(function (response) {
                 callback(response.data);
             })
