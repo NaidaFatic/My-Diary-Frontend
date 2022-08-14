@@ -65,7 +65,7 @@ export class Ajax {
                 callback(response.data);
             })
             .catch(function (error) {
-                //toast(error.response.data.message);
+                toast(error.response.data.message);
                 console.log(error)
             });
     }
@@ -76,7 +76,18 @@ export class Ajax {
                 callback(response.data);
             })
             .catch(function (error) {
-                //toast(error.response.data.message);
+                toast(error.response.data.message);
+                console.log(error)
+            });
+    }
+
+    static delete(api, params, callback) {
+        axios.delete('http://localhost:8080/api/' + api, params)
+            .then(function (response) {
+                callback(response.data);
+            })
+            .catch(function (error) {
+                toast(error.response.data.message);
                 console.log(error)
             });
     }

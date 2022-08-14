@@ -9,12 +9,14 @@ function ProfilePosts(props) {
     const [loading, setLoading] = useState(false);
     const [posts, setPosts] = useState();
     const [changed, setChanged] = useState(false);
+    const [len, setLen] = useState(false);
 
     useEffect(() => {
         setLoading(true);
         Ajax.get('posts/owner/' + params.id, null, function (response) {
             setPosts(response);
             setLoading(false);
+            setLen(response.length > 0)
         });
     }, [setLoading, params, changed]);
 
@@ -31,14 +33,9 @@ function ProfilePosts(props) {
     } else {
         return (
             <>
-                {posts && posts.map((val) => {
-                    return (
-                        <ProfilePost post={val} id={params.id} owner={props.owner} />
-                    );
-                })}
-                {/* {posts && React.Children.toArray(
-                    posts.map((val) => <ProfilePost post={val} id={params.id} owner={props.owner} />)
-                )} */}
+                {len && React.Children.toArray(
+                    posts.map((val) => <ProfilePost post={val} id={params.id} owner={props.owner} change={rend} />)
+                )}
             </>
         );
     }

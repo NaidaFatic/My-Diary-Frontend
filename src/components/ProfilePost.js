@@ -22,19 +22,23 @@ function ProfilePost(props) {
     const [profileOwner, setProfileOwner] = useState(false);
 
     useEffect(() => {
-        //let isMounted = true;
+        let isMounted = true;
+        setEditing(false)
+        showComment(false);
         setShowModalPost(false);
         setProfileOwner((decoded.uid === props.id));
-
 
         if (props.post.likes.includes(decoded.uid)) {
             setLiked(true);
         }
 
-        Ajax.get('comments/post/' + props.post._id, null, function (response) {
-            setComment(response);
-        });
-        // return () => { isMounted = false };
+        if (props.post._id) {
+            Ajax.get('comments/post/' + props.post._id, null, function (response) {
+                setComment(response);
+            });
+        }
+
+        return () => { isMounted = false };
     }, [ajaxResponse, setLoading, decoded.uid, props]);
 
     var backgroundImageStyle = {
@@ -66,7 +70,16 @@ function ProfilePost(props) {
             console.log(response);
             setAjaxResponse(!ajaxResponse);
             setShowModalPost(false);
-            //props.change() 
+            props.change()
+        });
+    }
+
+    function deletePost() {
+        Ajax.delete('posts/' + props.post._id, null, function (response) {
+            console.log(response);
+            setAjaxResponse(!ajaxResponse);
+            setShowModalPost(false);
+            props.change()
         });
     }
 
@@ -81,10 +94,10 @@ function ProfilePost(props) {
             <div>
                 <div className="flex flex-col postWrap" style={backgroundImageStyle} onClick={() => setShowModalPost(true)} >
                     <p className="postName grow">
-                        {props.post.name}
+                        {props.post.description}
                     </p>
                 </div>
-                <p className="postDescription">{props.post.description}</p>
+                <p className="postDescription">{props.post.name}</p>
 
                 {
                     showModal ? (
@@ -193,18 +206,27 @@ function ProfilePost(props) {
                                                                 <hr></hr>
 
                                                                 {/*footer*/}
-                                                                <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
+                                                                <div className="flex items-center justify-between py-6 border-t border-solid border-slate-200 rounded-b">
                                                                     <button
-                                                                        className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                                                                        className="bg-[#c98989] text-white font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                                                                         type="button"
-                                                                        onClick={() => setEditing(false)}
+                                                                        onClick={deletePost}
                                                                     >
-                                                                        Close
+                                                                        Delete
                                                                     </button>
-                                                                    <button
-                                                                        className="bg-submit text-white font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                                                                        type="submit">Update
-                                                                    </button>
+                                                                    <div>
+                                                                        <button
+                                                                            className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                                                                            type="button"
+                                                                            onClick={() => setEditing(false)}
+                                                                        >
+                                                                            Close
+                                                                        </button>
+                                                                        <button
+                                                                            className="bg-submit text-white font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                                                                            type="submit">Update
+                                                                        </button>
+                                                                    </div>
                                                                 </div>
                                                             </Form>
                                                         </Formik>
