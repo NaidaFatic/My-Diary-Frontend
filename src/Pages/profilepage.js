@@ -1,13 +1,12 @@
 import "./profilepage.css";
-import { IconUser, IconEdit, IconBookmark, IconPlus } from "@tabler/icons";
+import { IconUser, IconEdit, IconBookmark, IconPlus, IconLoader2 } from "@tabler/icons";
 import React, { useState, useEffect } from 'react';
 import { useParams } from "react-router-dom";
 import { Ajax } from "../utils/axios";
-import { IconLoader2 } from '@tabler/icons';
 import jwt_decode from "jwt-decode";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
-import ProfilePost from "../components/ProfilePost";
+import ProfilePosts from "../components/ProfilePosts";
 import { TextField } from "../components/TextField";
 
 function ProfilePage(props) {
@@ -25,27 +24,23 @@ function ProfilePage(props) {
     useEffect(() => {
         setLoading(true);
         setUpdatedProfile(false);
-        if (decoded.uid == params.id) { setProfileOwner(true); }
+        setProfileOwner((decoded.uid === params.id));
 
         Ajax.get('owners/' + params.id, null, function (response) {
             setOwner(response);
             setLoading(false);
+            setPosts(<ProfilePosts owner={response} />)
         });
 
-        Ajax.get('posts/owner/' + params.id, null, function (response) {
-            setPosts(response);
-            setLoading(false);
-        });
-
-    }, [setLoading, params.id, updatedProfile]);
+    }, [setLoading, params, updatedProfile, decoded.uid, profileOwner, setPosts]);
 
     function updateProfile(values, actions) {
 
         for (var key of Object.keys(values)) {
-            if (values[key] == "") delete values[key]
+            if (values[key] === "") delete values[key]
         }
 
-        if (Object.keys(values).length != 0) {
+        if (Object.keys(values).length !== 0) {
 
             Ajax.put('owners/' + params.id, values, function (response) {
                 console.log(response);
@@ -101,16 +96,14 @@ function ProfilePage(props) {
                     <hr />
                     {/* <div className="month"><p>May</p></div> */}
                     <section className="grid md:grid-cols-4 grid-cols-2 gap-4 posts">
-                        {posts && React.Children.toArray(
-                            posts.map((val) => <ProfilePost post={val} id={params.id} />)
-                        )}
-                        <div>
-                            <div className="flex flex-col">
+                        {posts}
+                        {profileOwner && <div>
+                            <div className="flex flex-col postWrap">
                                 <p className="postName grow m-auto pt:0">
                                     <IconPlus className="mt-20" onClick={() => setShowModal2(true)} />
                                 </p>
                             </div>
-                        </div>
+                        </div>}
                     </section>
                     {
                         showModal1 ? (
@@ -127,10 +120,10 @@ function ProfilePage(props) {
                                                     Update Profile
                                                 </h3>
                                                 <button
-                                                    className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+                                                    className="p-1 ml-auto bg-transparent border-0 text-black   float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
                                                     onClick={() => setShowModal1(false)}
                                                 >
-                                                    <span className="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
+                                                    <span className="bg-transparent text-black   h-6 w-6 text-2xl block outline-none focus:outline-none">
                                                         ×
                                                     </span>
                                                 </button>
@@ -191,10 +184,10 @@ function ProfilePage(props) {
                                                     Add Post
                                                 </h3>
                                                 <button
-                                                    className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+                                                    className="p-1 ml-auto bg-transparent border-0 text-black  float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
                                                     onClick={() => setShowModal2(false)}
                                                 >
-                                                    <span className="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
+                                                    <span className="bg-transparent text-black  h-6 w-6 text-2xl block outline-none focus:outline-none">
                                                         ×
                                                     </span>
                                                 </button>

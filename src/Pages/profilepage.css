@@ -16,7 +16,7 @@
   margin: 20px;
 }
 
-.profile .posts div div {
+.profile .posts div .postWrap {
   max-width: 425px;
   margin: auto;
   height: 220px;
@@ -25,9 +25,10 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  cursor: pointer;
 }
 
-.profile .posts div div:hover {
+.profile .posts div .postWrap:hover {
   background-blend-mode: saturation;
 }
 
@@ -46,7 +47,7 @@
   transition: opacity 0.2s, visibility 0.2s;
 }
 
-.profile .posts div div:hover .postName {
+.profile .posts div .postWrap:hover .postName {
   visibility: visible;
   opacity: 1;
 }
@@ -65,7 +66,6 @@
 
 .modal .user-img {
   max-width: calc(5rem + 1vw);
-  height: calc(5rem + 1vw);
   margin-right: 40px;
 }
 
