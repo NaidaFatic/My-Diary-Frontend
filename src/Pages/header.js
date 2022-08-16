@@ -18,9 +18,9 @@ function Header() {
                     Online Diary
                 </div>
                 <div className="flex items-center">
-                    <NavLink to="/feed"><IconLayoutDashboard /></NavLink>
-                    <NavLink to="/notifications"> <IconFlame /></NavLink>
-                    <NavLink to="/diary"><IconBookmark /></NavLink>
+                    <NavLink to={"/feed/" + decoded.uid}><IconLayoutDashboard /></NavLink>
+                    <NavLink to={"/notifications/" + decoded.uid}> <IconFlame /></NavLink>
+                    <NavLink to={"/diary/" + decoded.uid} ><IconBookmark /></NavLink>
                     <NavLink to={"/profile/" + decoded.uid} ><IconUser /></NavLink>
                     <button onClick={Logout}>Log out</button>
                 </div>

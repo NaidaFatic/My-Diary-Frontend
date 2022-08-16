@@ -11,17 +11,17 @@ import { useAuthContext } from "./hooks/useAuthContext";
 function App() {
   const [currentPage, setCurrentPage] = useState("LOGIN");
   const state = useAuthContext();
-  let { id } = useParams();
+
   return (
     <BrowserRouter>
       <div className="App">
         {state.token && <Header />}
         <Routes>
           <Route path="/" element={state.token ? <FeedPage setCurrentPage={setCurrentPage} /> : <Login setCurrentPage={setCurrentPage} />} />
-          <Route path="/feed" element={state.token ? <FeedPage setCurrentPage={setCurrentPage} /> : <Login setCurrentPage={setCurrentPage} />} />
-          <Route path="/diary" element={state.token ? <DiaryPage setCurrentPage={setCurrentPage} /> : <Login setCurrentPage={setCurrentPage} />} />
+          <Route path="/feed/:id" element={state.token ? <FeedPage setCurrentPage={setCurrentPage} /> : <Login setCurrentPage={setCurrentPage} />} />
+          <Route path="/diary/:id" element={state.token ? <DiaryPage setCurrentPage={setCurrentPage} /> : <Login setCurrentPage={setCurrentPage} />} />
           <Route path="/profile/:id" element={state.token ? <ProfilePage setCurrentPage={setCurrentPage} /> : <Login setCurrentPage={setCurrentPage} />} />
-          <Route path="/notifications" element={state.token ? <NotificationPage setCurrentPage={setCurrentPage} /> : <Login setCurrentPage={setCurrentPage} />} />
+          <Route path="/notifications/:id" element={state.token ? <NotificationPage setCurrentPage={setCurrentPage} /> : <Login setCurrentPage={setCurrentPage} />} />
         </Routes>
       </div>
     </BrowserRouter>
