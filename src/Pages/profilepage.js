@@ -8,6 +8,7 @@ import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import ProfilePosts from "../components/ProfilePosts";
 import { TextField } from "../components/TextField";
+import { ToastContainer } from 'react-toastify';
 
 function ProfilePage(props) {
     props.setCurrentPage("PROFILE");
@@ -77,6 +78,7 @@ function ProfilePage(props) {
     } else {
         return (
             <main className="pt:20">
+                <ToastContainer />
                 <div className="profile">
                     <section>
                         <div className="flex flex-wrap items-start">
