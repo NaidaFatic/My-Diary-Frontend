@@ -5,6 +5,7 @@ import logo from "../img/branding.png";
 export const FriendsLike = (props) => {
 
     if (!props) {
+        console.log(props)
         return (
             <main>
                 Loading...
@@ -15,7 +16,7 @@ export const FriendsLike = (props) => {
             <div className="post-img flex flex-wrap items-center">
                 <IconUser className="user-img" />
                 <h4>User Name</h4>
-                <div className="like-post text-right grow"><img src={logo} height="45" width="50" className="mr-0" /></div>
+                <div className="like-post text-right grow"><img src={logo} height="45" width="50" alt={""} className="mr-0" /></div>
             </div>
         )
     }

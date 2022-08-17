@@ -1,4 +1,4 @@
-import { Route, Routes, BrowserRouter, useParams } from "react-router-dom";
+import { Route, Routes, BrowserRouter } from "react-router-dom";
 import Login from "./Pages/Login";
 import FeedPage from "./Pages/feedPage";
 import Header from "./Pages/header";
