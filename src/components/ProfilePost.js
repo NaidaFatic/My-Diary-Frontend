@@ -25,7 +25,8 @@ function ProfilePost(props) {
         let isMounted = true;
         setEditing(false)
         setIsComment(false);
-        setShowModalPost(false);
+        if (props.openModal === props.post._id) { setShowModalPost(true); }
+        else { setShowModalPost(false); }
         setProfileOwner((decoded.uid === props.id));
 
         if (props.post.likes.includes(decoded.uid)) {

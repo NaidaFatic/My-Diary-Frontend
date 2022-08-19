@@ -1,7 +1,7 @@
 import "./profilepage.css";
 import { IconUser, IconEdit, IconBookmark, IconPlus, IconLoader2 } from "@tabler/icons";
 import React, { useState, useEffect } from 'react';
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import { Ajax } from "../utils/axios";
 import jwt_decode from "jwt-decode";
 import { Formik, Form } from "formik";
@@ -21,16 +21,20 @@ function ProfilePage(props) {
     const [showModal2, setShowModal2] = useState(false);
     var decoded = jwt_decode(localStorage.getItem('token'));
     const [profileOwner, setProfileOwner] = useState(false);
+    const location = useLocation()
+    const [openModal, setOpenModal] = useState(false)
 
     useEffect(() => {
         setLoading(true);
         setUpdatedProfile(false);
         setProfileOwner((decoded.uid === params.id));
 
+        if (location.state) { const { modal } = location.state; setOpenModal(modal) }
+
         Ajax.get('owners/' + params.id, null, function (response) {
             setOwner(response);
             setLoading(false);
-            setPosts(<ProfilePosts owner={response} />)
+            setPosts(<ProfilePosts owner={response} openModal={openModal} />)
         });
 
     }, [setLoading, params, updatedProfile, decoded.uid, profileOwner, setPosts]);

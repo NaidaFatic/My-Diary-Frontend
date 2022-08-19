@@ -30,7 +30,7 @@ function NotificationPage(props) {
         });
 
     }, [params, decoded.uid, profileOwner]);
-
+    //console.log(posts)
     if (!profileOwner) {
         return (
             < main >
@@ -49,21 +49,21 @@ function NotificationPage(props) {
                 </div >
                 <h4 className="mx-3 mb-5 flex">Friend Requests <IconFlame style={{ fill: 'red' }} /></h4>
                 <div className="post">
-                    <section className="pt-4 notif">
+                    <section className="notif">
                         <FriendsRequest request={friendRequest} id={params.id} />
                     </section>
                 </div >
                 <h4 className="mx-3 mb-5 flex">Liked Posts  <IconHeart style={{ fill: 'red' }} /></h4>
                 <div className="post">
-                    <section className="pt-4">
-                        {/* {React.Children.toArray(
-                            posts.map((val) => <FriendsRequest likes={val.likes} />)
-                        )} */}
+                    <section>
+                        {React.Children.toArray(
+                            posts.map((val) => (<FriendsLike likes={val.likes} post={val} />))
+                        )}
                     </section>
                 </div >
                 <h4 className="mx-3 mb-5 flex">Commented Posts  <IconMessage2 style={{ fill: '#114B5F' }} /></h4>
                 <div className="post">
-                    <section className="pt-4">
+                    <section>
                         <FriendsComment />
                     </section>
                 </div >

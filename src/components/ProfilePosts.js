@@ -34,7 +34,7 @@ function ProfilePosts(props) {
         return (
             <>
                 {len && React.Children.toArray(
-                    posts.map((val) => <ProfilePost post={val} id={params.id} owner={props.owner} change={rend} />)
+                    posts.map((val) => <ProfilePost post={val} id={params.id} owner={props.owner} change={rend} openModal={props.openModal} />)
                 )}
             </>
         );

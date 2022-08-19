@@ -20,7 +20,6 @@ export const FriendRequest = (props) => {
         };
     }, [setLoading, setIsApproved]);
 
-    console.log(props.id)
 
     const approve = (e) => {
         Ajax.put('owners/addFriend/' + props.id, { "friendID": request._id }, function (response) { console.log(response) });
