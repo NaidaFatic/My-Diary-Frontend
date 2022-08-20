@@ -64,7 +64,9 @@ function NotificationPage(props) {
                 <h4 className="mx-3 mb-5 flex">Commented Posts  <IconMessage2 style={{ fill: '#114B5F' }} /></h4>
                 <div className="post">
                     <section>
-                        <FriendsComment />
+                        {React.Children.toArray(
+                            posts.map((val) => (<FriendsComment post={val} />))
+                        )}
                     </section>
                 </div >
             </main >

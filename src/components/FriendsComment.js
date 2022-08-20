@@ -1,11 +1,20 @@
-import { IconUser } from '@tabler/icons';
-import React, { useState } from 'react';
-import logo from "../img/branding.png";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import { Ajax } from "../utils/axios";
+import { FriendComment } from './FriendComment';
 
 export const FriendsComment = (props) => {
+    const [comment, setComment] = useState();
 
-    if (!props) {
+    useEffect(() => {
+        Ajax.get('comments/post/' + props.post._id, null, function (response) {
+            setComment(response);
+            //console.log(props.post._id)
+        });
+        return () => {
+        };
+    }, [props]);
+
+    if (!props || !comment) {
         return (
             <main>
                 Loading...
@@ -13,13 +22,13 @@ export const FriendsComment = (props) => {
         );
     } else {
         return (
-            <div className="post-img flex flex-wrap items-center">
-                <Link to={{
-                    pathname: '/profile/'
-                }}>  <IconUser className="user-img" /></Link>
-                <h4>User Name</h4>
-                <div className="like-post text-right grow"><img src={logo} height="45" width="50" alt={""} className="mr-0" /></div>
-            </div>
+            <>
+                {comment &&
+                    React.Children.toArray(
+                        comment.map((val) => (<FriendComment comment={val} />))
+                    )
+                }
+            </>
         )
     }
 }
