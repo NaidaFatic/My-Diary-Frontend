@@ -21,17 +21,16 @@ export const FriendComment = (props) => {
         });
 
         return () => {
-
+            setPost();
         };
     }, [setLoading, props]);
 
     //console.log(props);
 
-    if (loading || !user || !post._id) {
+    if (loading || !user || !props || !post) {
         return (
-            <main>
-                Loading...
-            </main >
+            <>
+            </>
         );
     } else {
         return (

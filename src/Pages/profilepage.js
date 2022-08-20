@@ -1,5 +1,5 @@
 import "./profilepage.css";
-import { IconUser, IconEdit, IconBookmark, IconPlus, IconLoader2 } from "@tabler/icons";
+import { IconUser, IconEdit, IconBookmark, IconPlus, IconLoader2, IconUserPlus } from "@tabler/icons";
 import React, { useState, useEffect } from 'react';
 import { useParams, useLocation } from "react-router-dom";
 import { Ajax } from "../utils/axios";
@@ -21,6 +21,8 @@ function ProfilePage(props) {
     const [showModal2, setShowModal2] = useState(false);
     var decoded = jwt_decode(localStorage.getItem('token'));
     const [profileOwner, setProfileOwner] = useState(false);
+    const [visitor, setVisitor] = useState(false);
+    const [addFriend, setaddFriend] = useState(false);
     const location = useLocation()
     const [openModal, setOpenModal] = useState(false)
 
@@ -37,8 +39,17 @@ function ProfilePage(props) {
             setPosts(<ProfilePosts owner={response} openModal={openModal} />)
         });
 
-    }, [setLoading, params, updatedProfile, decoded.uid, profileOwner, setPosts]);
-
+        Ajax.get('owners/' + decoded.uid, null, function (response) {
+            setVisitor(response);
+            setLoading(false);
+            if (response.friends.includes(params.id) || response.friendsRequest.includes(params.id)) {
+                setaddFriend(true);
+            }
+        });
+        return () => {
+        };
+    }, [setLoading, params, updatedProfile, decoded.uid, profileOwner, setPosts, addFriend]);
+    //console.log(addFriend)
     function updateProfile(values, actions) {
 
         for (var key of Object.keys(values)) {
@@ -56,6 +67,13 @@ function ProfilePage(props) {
             setShowModal1(false);
         }
 
+    }
+
+    const addFriendFunction = (e) => {
+        Ajax.put('owners/request/' + owner._id, { "friendID": visitor._id }, function (response) {
+            console.log(response);
+            setaddFriend(true);
+        });
     }
 
     function postPost(values, actions) {
@@ -96,6 +114,7 @@ function ProfilePage(props) {
                             <div className="flex flex-col" style={{ height: "fit-content" }}>
                                 <a href="/diary"><IconBookmark className="flex-start" /></a>
                                 {profileOwner && <IconEdit className="flex-end" onClick={() => setShowModal1(true)} />}
+                                {!profileOwner && !addFriend && <IconUserPlus className="flex-end mr-0 " onClick={addFriendFunction} />}
                             </div>
                         </div>
                     </section>
