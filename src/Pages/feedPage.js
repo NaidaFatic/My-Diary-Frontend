@@ -3,6 +3,7 @@ import "../index.css";
 import React, { useState, useEffect } from 'react';
 import { Post } from "../components/Post";
 import { Ajax } from "../utils/axios";
+import { ToastContainer } from 'react-toastify';
 
 function FeedPage(props) {
     props.setCurrentPage("FEED");
@@ -39,6 +40,7 @@ function FeedPage(props) {
     } else {
         return (
             < main >
+                <ToastContainer />
                 {React.Children.toArray(
                     posts.map((val) => <Post post={val} />)
                 )}

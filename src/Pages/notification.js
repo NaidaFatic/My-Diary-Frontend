@@ -9,6 +9,7 @@ import { FriendsRequest } from "../components/FriendsRequest"
 import { FriendsLike } from "../components/FriendsLike"
 import { FriendsComment } from "../components/FriendsComment"
 import { WarningUnauthorized } from "../components/WarningUnauthorized"
+import { ToastContainer } from 'react-toastify';
 
 function NotificationPage(props) {
     props.setCurrentPage("NOTIF");
@@ -40,6 +41,7 @@ function NotificationPage(props) {
     } if (profileOwner) {
         return (
             <main>
+                <ToastContainer />
                 <div className="post">
                     <section>
                         <div className="post-img flex flex-wrap items-center ">
