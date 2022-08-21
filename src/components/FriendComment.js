@@ -29,8 +29,9 @@ export const FriendComment = (props) => {
 
     if (loading || !user || !props || !post) {
         return (
-            <>
-            </>
+            <main>
+                Loading...
+            </main >
         );
     } else {
         return (

@@ -12,13 +12,12 @@ export const FriendsComment = (props) => {
         });
         return () => {
         };
-    }, [props]);
+    }, []);
 
     if (!props || !comment) {
         return (
-            <main>
-                Loading...
-            </main >
+            <>
+            </>
         );
     } else {
         return (
