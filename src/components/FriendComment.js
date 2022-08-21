@@ -7,6 +7,8 @@ export const FriendComment = (props) => {
     const [user, setUser] = useState();
     const [post, setPost] = useState();
     const [loading, setLoading] = useState(false);
+    const date = props.comment.updatedAt.split('T')[0]
+    const time = props.comment.updatedAt.split('T')[1].split(':')[0] + ':' + props.comment.updatedAt.split('T')[1].split(':')[1]
 
     useEffect(() => {
         setLoading(true);
@@ -40,7 +42,10 @@ export const FriendComment = (props) => {
                     <Link to={{
                         pathname: '/profile/' + user._id
                     }}>  <IconUser className="user-img" /></Link>
-                    <h4>{user.name} {user.surname}</h4>
+                    <div>
+                        <h4>{user.name} {user.surname}</h4>
+                        <small>{date} {time}</small>
+                    </div>
                     <div className="like-post text-right grow flex justify-end items-center"><h4>{props.comment.description}</h4>
                         {post.picture && <Link to={{ pathname: '/profile/' + post.ownerID }} state={{ modal: post._id }}><img src={post.picture} height="45" width="50" alt={""} className="ml-3 mx-0" /></Link>}
                         {!post.picture && <Link to={{ pathname: '/profile/' + post.ownerID }} state={{ modal: post._id }}> <IconExternalLink /> </Link>}
