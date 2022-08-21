@@ -62,3 +62,12 @@
   height: 50px;
   background-color: #d9d6d6;
 }
+
+.searchFriend,
+.searchFriend input,
+.searchFriend input:hover {
+  border: none;
+  background: #fbfafa;
+  width: -webkit-fill-available;
+  cursor: pointer;
+}

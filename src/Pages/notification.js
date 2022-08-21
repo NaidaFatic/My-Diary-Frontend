@@ -1,15 +1,16 @@
 import "./notification.css";
 import "../index.css";
 import { useParams } from "react-router-dom";
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import jwt_decode from "jwt-decode";
 import { Ajax } from "../utils/axios";
-import { IconHeart, IconFlame, IconMessage2 } from '@tabler/icons';
+import { IconHeart, IconFlame, IconMessage2, IconSearch, IconX } from '@tabler/icons';
 import { FriendsRequest } from "../components/FriendsRequest"
 import { FriendsLike } from "../components/FriendsLike"
 import { FriendsComment } from "../components/FriendsComment"
 import { WarningUnauthorized } from "../components/WarningUnauthorized"
 import { ToastContainer } from 'react-toastify';
+import { SearchFriend } from "../components/SearchFriend";
 
 function NotificationPage(props) {
     props.setCurrentPage("NOTIF");
@@ -17,7 +18,10 @@ function NotificationPage(props) {
     var decoded = jwt_decode(localStorage.getItem('token'));
     const [friendRequest, setFriendRequest] = useState();
     const [posts, setPosts] = useState([]);
+    const [searchUsers, setSearchUsers] = useState([]);
     const [profileOwner, setProfileOwner] = useState(false);
+    const [searchIcon, setsearchIcon] = useState(true);
+    const inputSearch = useRef(null);
 
     useEffect(() => {
         setProfileOwner((decoded.uid === params.id));
@@ -30,7 +34,19 @@ function NotificationPage(props) {
             setPosts(response);
         });
 
-    }, [params, decoded.uid, profileOwner]);
+    }, [params, decoded.uid, profileOwner, searchIcon]);
+
+    const search = (e) => {
+        Ajax.get('owners/search', { params: { name: inputSearch.current.value } }, function (response) {
+            setSearchUsers(response);
+            setsearchIcon(true)
+        })
+    }
+
+    const clear = (e) => {
+        inputSearch.current.value = ""
+        setsearchIcon(false)
+    }
     //console.log(posts)
     if (!profileOwner) {
         return (
@@ -46,6 +62,13 @@ function NotificationPage(props) {
                     <section>
                         <div className="post-img flex flex-wrap items-center ">
                             <h4 className="font-bold">Notifications</h4>
+                            <div className="flex" style={{ width: '-webkit-fill-available' }}>
+                                <input label="Name" name="name" type="text" placeholder="Search Friends" ref={inputSearch} onChange={search} />
+                                <IconX onClick={clear} />
+                            </div>
+                            {searchIcon ? React.Children.toArray(
+                                searchUsers.map((val) => (<SearchFriend user={val} />))
+                            ) : null}
                         </div>
                     </section>
                 </div >
