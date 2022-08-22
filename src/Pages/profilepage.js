@@ -1,5 +1,5 @@
 import "./profilepage.css";
-import { IconUser, IconEdit, IconBookmark, IconPlus, IconLoader2, IconUserPlus } from "@tabler/icons";
+import { IconUser, IconEdit, IconBookmark, IconPlus, IconLoader2, IconUserPlus, IconColorPicker } from "@tabler/icons";
 import React, { useState, useEffect } from 'react';
 import { useParams, useLocation } from "react-router-dom";
 import { Ajax } from "../utils/axios";
@@ -25,6 +25,7 @@ function ProfilePage(props) {
     const [addFriend, setaddFriend] = useState(false);
     const location = useLocation()
     const [openModal, setOpenModal] = useState(false)
+    const [postPicture, setPostPicture] = useState()
 
     useEffect(() => {
         setLoading(true);
@@ -81,6 +82,7 @@ function ProfilePage(props) {
             console.log(response);
             setUpdatedProfile(true);
             setShowModal2(false);
+            setPostPicture(null);
         });
     }
 
@@ -90,6 +92,43 @@ function ProfilePage(props) {
         description: Yup.string()
             .required('Required')
     });
+
+    if (owner) {
+        var backgroundImageStyle = {
+            backgroundImage: `url(${owner.profilePic})`
+        };
+    }
+    const uploadProfilePic = () => {
+
+        var widget = window.cloudinary.createUploadWidget({
+            cloudName: 'dp9kduaei',
+            uploadPreset: 'my-diary-profile'
+        },
+            (error, result) => {
+                if (!error && result && result.event === "success") {
+                    Ajax.put('owners/' + params.id, { "profilePic": result.info.url }, function (response) {
+                        console.log(response);
+                        setUpdatedProfile(true);
+                    });
+                    console.log(result.info.url);
+                }
+            });
+        widget.open()
+    }
+
+    const uploadPostPic = () => {
+        var widget = window.cloudinary.createUploadWidget({
+            cloudName: 'dp9kduaei',
+            uploadPreset: 'my-diary-post'
+        },
+            (error, result) => {
+                if (!error && result && result.event === "success") {
+                    setPostPicture(result.info.url);
+                }
+            });
+        //console.log(postPicture);
+        widget.open()
+    }
 
     if (loading || !owner) {
         return (
@@ -104,7 +143,7 @@ function ProfilePage(props) {
                 <div className="profile">
                     <section>
                         <div className="flex flex-wrap items-start">
-                            <IconUser className="user-img flex-none" />
+                            {owner.profilePic ? <div className="user-img-picture flex-none" style={backgroundImageStyle} /> : <IconUser className="user-img flex-none" />}
                             <div className="grow">
                                 <h4 className="font-bold">{owner.name} {owner.surname}</h4>
                                 {owner.diaryName && <h4>{owner.diaryName}</h4>}
@@ -162,7 +201,7 @@ function ProfilePage(props) {
                                             >
                                                 <Form>
                                                     <div className="relative p-6 md:flex modal">
-                                                        <IconUser className="user-img flex-none md:basis-1/3" />
+                                                        {owner.profilePic ? (<><IconColorPicker className="edit-picture" onClick={uploadProfilePic} /><div className="user-img-picture flex-none" style={backgroundImageStyle} /></>) : (<IconUser className="user-img flex-none" />)}
                                                         <div className="basis-2/3">
                                                             <TextField label="Name" name="name" type="text" placeholder="Name" />
                                                             <TextField label="Surname" name="surname" type="text" placeholder="Surname" />
@@ -219,7 +258,8 @@ function ProfilePage(props) {
                                             </div>
                                             {/*body*/}
                                             <Formik
-                                                initialValues={{ name: '', description: '', ownerID: decoded.uid }}
+                                                enableReinitialize
+                                                initialValues={{ name: '', description: '', ownerID: decoded.uid, picture: postPicture }}
                                                 validationSchema={validation}
                                                 onSubmit={(values, actions) => {
                                                     postPost(values, actions);
@@ -228,9 +268,10 @@ function ProfilePage(props) {
                                                 <Form>
                                                     <div className="relative p-6 m-auto modal">
                                                         <div className="basis-2/3">
+                                                            {postPicture && <img alt="Post image" src={postPicture} width="200px" />}
+                                                            <input type="button" className="bg-submit text-white font-bold uppercase text-sm px-6 py-3 rounded outline-none mr-1 mb-1 ease-linear transition-all duration-150" onClick={uploadPostPic} value="Upload image" />
                                                             <TextField label="Name" name="name" type="text" placeholder="Post Name" />
                                                             <TextField label="Description" name="description" type="text" placeholder="Description" />
-                                                            <TextField label="Picture" name="picture" type="file" />
                                                         </div>
                                                     </div>
                                                     {/*footer*/}

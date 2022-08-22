@@ -86,6 +86,30 @@
   right: -10px;
   top: -19px;
 }
+.user-img-picture {
+  width: calc(3rem + 1vw);
+  height: calc(3rem + 1vw);
+  background: #ebebeb;
+  border-radius: 100%;
+  margin-right: 3%;
+  background-position: center;
+  background-size: cover;
+}
+.edit-picture {
+  position: absolute;
+  top: 8%;
+  left: 30px;
+}
+
+input[type="button"] {
+  width: max-content;
+  cursor: pointer;
+}
+
+input[type="button"]:focus {
+  background: rgba(17, 75, 95, 0.72);
+}
+
 @media screen and (max-width: 768px) {
   .modal .user-img {
     width: calc(3rem + 1vw);

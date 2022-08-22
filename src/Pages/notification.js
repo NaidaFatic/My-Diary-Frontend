@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import React, { useState, useEffect, useRef } from 'react';
 import jwt_decode from "jwt-decode";
 import { Ajax } from "../utils/axios";
-import { IconHeart, IconFlame, IconMessage2, IconSearch, IconX } from '@tabler/icons';
+import { IconHeart, IconFlame, IconMessage2, IconX } from '@tabler/icons';
 import { FriendsRequest } from "../components/FriendsRequest"
 import { FriendsLike } from "../components/FriendsLike"
 import { FriendsComment } from "../components/FriendsComment"

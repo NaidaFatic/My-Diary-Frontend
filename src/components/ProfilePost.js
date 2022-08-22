@@ -13,7 +13,6 @@ function ProfilePost(props) {
     const [loading, setLoading] = useState(false);
     const [liked, setLiked] = useState(false);
     const [comment, setComment] = useState();
-    const [addComments, setAddComments] = useState();
     const [editing, setEditing] = useState(false);
     const [isComment, setIsComment] = useState(false);
     const inputMessage = useRef(null);
@@ -62,7 +61,6 @@ function ProfilePost(props) {
     };
 
     const addComment = (e) => {
-        setAddComments(inputMessage.current.value);
         Ajax.post('comments/' + props.post._id, { "ownerID": decoded.uid, "description": inputMessage.current.value }, function (response) { console.log(response); setAjaxResponse(!ajaxResponse); inputMessage.current.value = '' });
     };
 

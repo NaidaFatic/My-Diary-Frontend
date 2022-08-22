@@ -33,9 +33,12 @@ function ProfilePosts(props) {
     } else {
         return (
             <>
-                {len && React.Children.toArray(
-                    posts.map((val) => <ProfilePost post={val} id={params.id} owner={props.owner} change={rend} openModal={props.openModal} />)
-                )}
+                {/* <button id="upload_widget" className="cloudinary-button" onClick={showWidget}>Upload files</button> */}
+                {
+                    len && React.Children.toArray(
+                        posts.map((val) => <ProfilePost post={val} id={params.id} owner={props.owner} change={rend} openModal={props.openModal} />)
+                    )
+                }
             </>
         );
     }
