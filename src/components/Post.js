@@ -9,6 +9,7 @@ import jwt_decode from "jwt-decode";
 export const Post = (props) => {
     //console.log(props.post.ownerID)
     const [owner, setOwner] = useState();
+    const [user, setUser] = useState();
     const [loading, setLoading] = useState();
     const [liked, setLiked] = useState(false);
     const [isComment, setIsComment] = useState(false);
@@ -21,6 +22,11 @@ export const Post = (props) => {
         setLoading(true);
         Ajax.get('owners/' + props.post.ownerID, null, function (response) {
             setOwner(response);
+            setLoading(false);
+        });
+
+        Ajax.get('owners/' + decoded.uid, null, function (response) {
+            setUser(response);
             setLoading(false);
         });
 
@@ -56,9 +62,19 @@ export const Post = (props) => {
         setIsComment(!isComment);
     };
 
-    //console.log(comment);
+    if (user) {
+        var backgroundImageStyle = {
+            backgroundImage: `url(${user.profilePic})`
+        };
+    }
 
-    if (loading || !owner) {
+    if (owner) {
+        var backgroundImageStyleOwner = {
+            backgroundImage: `url(${owner.profilePic})`
+        };
+    }
+
+    if (loading || !owner || !user) {
         return (
             <main>
                 <IconLoader2 className="m-auto" />
@@ -71,7 +87,8 @@ export const Post = (props) => {
                     <div className="post-img flex flex-wrap items-center ">
                         <Link to={{
                             pathname: '/profile/' + owner._id
-                        }}> < IconUser className="user-img" /></Link>
+                        }}>{owner.profilePic ? <div className="user-img-picture flex-none" style={backgroundImageStyleOwner} /> : <IconUser className="user-img flex-none" />}
+                        </Link>
                         <h4 className="font-bold">{owner.name} {owner.surname}</h4>
                     </div>
                 </section>
@@ -100,7 +117,7 @@ export const Post = (props) => {
                             )}
                             <div>
                                 <div className="flex items-center ml-5">
-                                    <IconUser className="user-img" />
+                                    {user.profilePic ? <div className="user-img-picture flex-none" style={backgroundImageStyle} /> : <IconUser className="user-img flex-none" />}
                                     <input type="text" name="comment" ref={inputMessage} />
                                     <IconSend onClick={addComment} />
                                 </div>

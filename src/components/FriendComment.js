@@ -27,7 +27,11 @@ export const FriendComment = (props) => {
         };
     }, [setLoading, props]);
 
-    //console.log(props);
+    if (user) {
+        var backgroundImageStyle = {
+            backgroundImage: `url(${user.profilePic})`
+        };
+    }
 
     if (loading || !user || !props || !post) {
         return (
@@ -41,7 +45,7 @@ export const FriendComment = (props) => {
                 <div className="post-img flex flex-wrap items-center">
                     <Link to={{
                         pathname: '/profile/' + user._id
-                    }}>  <IconUser className="user-img" /></Link>
+                    }}>  {user.profilePic ? <div className="user-img-picture flex-none" style={backgroundImageStyle} /> : <IconUser className="user-img flex-none" />}</Link>
                     <div>
                         <h4>{user.name} {user.surname}</h4>
                         <small>{date} {time}</small>

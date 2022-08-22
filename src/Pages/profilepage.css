@@ -87,11 +87,11 @@
   top: -19px;
 }
 .user-img-picture {
-  width: calc(3rem + 1vw);
-  height: calc(3rem + 1vw);
+  width: calc(1.5rem + 1vw);
+  height: calc(1.5rem + 1vw);
   background: #ebebeb;
   border-radius: 100%;
-  margin-right: 3%;
+  margin-inline: 10px;
   background-position: center;
   background-size: cover;
 }

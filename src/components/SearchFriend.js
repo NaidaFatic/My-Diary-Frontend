@@ -17,6 +17,12 @@ export const SearchFriend = (props) => {
 
     }, [setLoading]);
 
+    if (user) {
+        var backgroundImageStyle = {
+            backgroundImage: `url(${user.profilePic})`
+        };
+    }
+
     if (loading || !user) {
         return (
             <main>
@@ -28,7 +34,8 @@ export const SearchFriend = (props) => {
             <>
                 <Link className="searchFriend flex py-2" to={{
                     pathname: '/profile/' + user._id
-                }}>  <IconUser className="user-img flex-none" /> <input label="Name" name="name" type="text" value={user.name + ' ' + user.surname} readOnly /></Link>
+                }}> {user.profilePic ? <div className="user-img-picture flex-none" style={backgroundImageStyle} /> : <IconUser className="user-img flex-none" />}
+                    <input label="Name" name="name" type="text" value={user.name + ' ' + user.surname} readOnly /></Link>
             </>
         )
     }

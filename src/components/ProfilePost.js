@@ -45,6 +45,10 @@ function ProfilePost(props) {
         backgroundImage: `url(${props.post.picture})`
     };
 
+    var backgroundImageStyleProfile = {
+        backgroundImage: `url(${props.owner.profilePic})`
+    };
+
     const like = (e) => {
 
         if (liked) {
@@ -244,7 +248,7 @@ function ProfilePost(props) {
                                                         </div>
                                                         <div className={`mb-5 ${isComment ? 'showComment' : 'notShowComment'}`}>
                                                             <div className="flex items-center ml-5">
-                                                                <IconUser className="user-img" />
+                                                                {props.owner.profilePic ? <div className="user-img-picture flex-none" style={backgroundImageStyleProfile} /> : <IconUser className="user-img flex-none" />}
                                                                 <input type="text" name="comment" ref={inputMessage} />
                                                                 <IconSend onClick={addComment} />
                                                             </div>
