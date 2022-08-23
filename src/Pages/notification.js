@@ -1,5 +1,6 @@
 import "./notification.css";
 import "../index.css";
+import axios from 'axios';
 import { useParams } from "react-router-dom";
 import React, { useState, useEffect, useRef } from 'react';
 import jwt_decode from "jwt-decode";
@@ -22,8 +23,10 @@ function NotificationPage(props) {
     const [profileOwner, setProfileOwner] = useState(false);
     const [searchIcon, setsearchIcon] = useState(true);
     const inputSearch = useRef(null);
+    const [searchText, setSearchText] = useState();
 
     useEffect(() => {
+        let cancel
         setProfileOwner((decoded.uid === params.id));
 
         Ajax.get('owners/' + params.id, null, function (response) {
@@ -34,20 +37,30 @@ function NotificationPage(props) {
             setPosts(response);
         });
 
-    }, [params, decoded.uid, profileOwner, searchIcon]);
+        axios({
+            method: 'GET',
+            url: 'http://localhost:8080/api/owners/search',
+            params: { name: searchText },
+            cancelToken: new axios.CancelToken(c => cancel = c)
+        }).then(response => {
+            console.log(response)
+        }).catch(function (thrown) {
+            if (axios.isCancel(thrown)) {
+                console.log('Request canceled', thrown.message);
+            }
+        });
+        return () => cancel()
+    }, [params, decoded.uid, profileOwner, searchIcon, searchText]);
 
-    const search = (e) => {
-        Ajax.get('owners/search', { params: { name: inputSearch.current.value } }, function (response) {
-            setSearchUsers(response);
-            setsearchIcon(true)
-        })
+    function search(e) {
+        setSearchText(inputSearch.current.value)
     }
 
-    const clear = (e) => {
+    function clear(e) {
         inputSearch.current.value = ""
         setsearchIcon(false)
     }
-    //console.log(posts)
+
     if (!profileOwner) {
         return (
             < main >
