@@ -4,34 +4,37 @@ import React, { useState, useEffect } from 'react';
 import { Post } from "../components/Post";
 import { Ajax } from "../utils/axios";
 import { ToastContainer } from 'react-toastify';
+import InfiniteScroll from "react-infinite-scroll-component";
 
 function FeedPage(props) {
     props.setCurrentPage("FEED");
-    const [posts, setPosts] = useState();
+    const [items, setItems] = useState([]);
+    const [moreItems, setMoreItems] = useState([]);
+    const [hasMore, sethasMore] = useState(true);
+    const [page, setpage] = useState(5);
     const [loading, setLoading] = useState();
 
     useEffect(() => {
         setLoading(true);
 
         Ajax.get('posts', null, function (response) {
-            const loadPosts = [];
-
-            for (const key in response) {
-
-                const post = {
-                    id: key,
-                    ...response[key]
-                }
-
-                loadPosts.push(post);
-            };
-            setPosts(loadPosts);
+            setItems(response);
             setLoading(false);
         });
     }, [setLoading]);
 
-    // console.log(posts);
-    if (loading || posts == null) {
+    const fetchMoreData = () => {
+        console.log('posts?page=' + page + '&limit=5');
+        Ajax.get('posts?page=' + page + '&limit=5', null, function (response) {
+            setItems([...items, ...response]);
+            if (response.length === 0 || response.length < 5) {
+                sethasMore(false);
+            }
+        });
+        setpage(page + 5);
+    };
+
+    if (loading || !items) {
         return (
             <main>
                 Loading...
@@ -41,12 +44,17 @@ function FeedPage(props) {
         return (
             < main >
                 <ToastContainer />
-                {React.Children.toArray(
-                    posts.map((val) => <Post post={val} />)
-                )}
-                {/* {posts.map((post) => (
-                    <Post post={post} />
-                ))} */}
+                <InfiniteScroll
+                    dataLength={items.length}
+                    next={fetchMoreData}
+                    hasMore={hasMore}
+                    loader={<>Loading...</>}
+                    endMessage={<>End</>}
+                >
+                    {React.Children.toArray(
+                        items.map((val) => <Post post={val} />)
+                    )}
+                </InfiniteScroll>
             </main >
         );
     }
