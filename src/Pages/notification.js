@@ -43,7 +43,7 @@ function NotificationPage(props) {
             params: { name: searchText },
             cancelToken: new axios.CancelToken(c => cancel = c)
         }).then(response => {
-            console.log(response)
+            setSearchUsers(response.data)
         }).catch(function (thrown) {
             if (axios.isCancel(thrown)) {
                 console.log('Request canceled', thrown.message);
@@ -51,7 +51,7 @@ function NotificationPage(props) {
         });
         return () => cancel()
     }, [params, decoded.uid, profileOwner, searchIcon, searchText]);
-
+    //console.log(searchUsers)
     function search(e) {
         setSearchText(inputSearch.current.value)
     }
@@ -79,7 +79,7 @@ function NotificationPage(props) {
                                 <input label="Name" name="name" type="text" placeholder="Search Friends" ref={inputSearch} onChange={search} />
                                 <IconX onClick={clear} />
                             </div>
-                            {searchIcon ? React.Children.toArray(
+                            {searchUsers ? React.Children.toArray(
                                 searchUsers.map((val) => (<SearchFriend user={val} />))
                             ) : null}
                         </div>
