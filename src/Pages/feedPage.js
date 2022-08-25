@@ -5,23 +5,30 @@ import { Post } from "../components/Post";
 import { Ajax } from "../utils/axios";
 import { ToastContainer } from 'react-toastify';
 import InfiniteScroll from "react-infinite-scroll-component";
+import jwt_decode from "jwt-decode";
 
 function FeedPage(props) {
     props.setCurrentPage("FEED");
     const [items, setItems] = useState([]);
-    const [moreItems, setMoreItems] = useState([]);
+    const [user, setUser] = useState([]);
     const [hasMore, sethasMore] = useState(true);
     const [page, setpage] = useState(5);
     const [loading, setLoading] = useState();
+    var decoded = jwt_decode(localStorage.getItem('token'));
 
     useEffect(() => {
         setLoading(true);
+
+        Ajax.get('owners/' + decoded.uid, null, function (response) {
+            setUser(response);
+            setLoading(false);
+        });
 
         Ajax.get('posts', null, function (response) {
             setItems(response);
             setLoading(false);
         });
-    }, [setLoading]);
+    }, [setLoading, decoded.uid]);
 
     const fetchMoreData = () => {
         console.log('posts?page=' + page + '&limit=5');
@@ -34,7 +41,7 @@ function FeedPage(props) {
         setpage(page + 5);
     };
 
-    if (loading || !items) {
+    if (loading || !items || !user) {
         return (
             <main>
                 Loading...
@@ -51,9 +58,18 @@ function FeedPage(props) {
                     loader={<>Loading...</>}
                     endMessage={<>End</>}
                 >
-                    {React.Children.toArray(
-                        items.map((val) => <Post post={val} />)
-                    )}
+                    <div>
+                        {items.map((posts) => (
+                            (user.friends.includes(posts.ownerID) || posts.ownerID === decoded.uid)
+                                ? (<Post Key={posts.toString()} post={posts} />)
+                                : null
+                        ))}
+                    </div>
+                    {/* {React.Children.toArray(
+                        items.map(
+                            (val) => <Post post={val} />
+                        )
+                    )} */}
                 </InfiniteScroll>
             </main >
         );

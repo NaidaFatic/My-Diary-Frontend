@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
-
+import jwt_decode from "jwt-decode";
 
 export const useRedirect = () => {
 
@@ -9,7 +9,8 @@ export const useRedirect = () => {
     useEffect(() => {
         const token = sessionStorage.getItem("token");
         if (token) {
-            navigate("/home");
+            var decoded = jwt_decode(localStorage.getItem('token'));
+            navigate("/feed/" + decoded.uid);
         } else {
             navigate("/login");
         }
