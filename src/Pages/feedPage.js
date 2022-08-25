@@ -41,7 +41,7 @@ function FeedPage(props) {
         setpage(page + 5);
     };
 
-    if (loading || !items || !user) {
+    if (loading || !items || !user.friends) {
         return (
             <main>
                 Loading...
@@ -49,7 +49,7 @@ function FeedPage(props) {
         );
     } else {
         return (
-            < main >
+            <main>
                 <ToastContainer />
                 <InfiniteScroll
                     dataLength={items.length}
@@ -59,11 +59,11 @@ function FeedPage(props) {
                     endMessage={<>End</>}
                 >
                     <div>
-                        {items.map((posts) => (
+                        {user.friends ? items.map((posts) => (
                             (user.friends.includes(posts.ownerID) || posts.ownerID === decoded.uid)
-                                ? (<Post Key={posts.toString()} post={posts} />)
+                                ? (<Post post={posts} />)
                                 : null
-                        ))}
+                        )) : null}
                     </div>
                     {/* {React.Children.toArray(
                         items.map(
