@@ -18,6 +18,7 @@ function FeedPage(props) {
 
     useEffect(() => {
         setLoading(true);
+        const ac = new AbortController();
 
         Ajax.get('owners/' + decoded.uid, null, function (response) {
             setUser(response);
@@ -28,6 +29,11 @@ function FeedPage(props) {
             setItems(response);
             setLoading(false);
         });
+
+        return () => {
+            decoded.uid = null;
+            props = null
+        };
     }, [setLoading, decoded.uid]);
 
     const fetchMoreData = () => {

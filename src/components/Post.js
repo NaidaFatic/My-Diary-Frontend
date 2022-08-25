@@ -37,7 +37,10 @@ export const Post = (props) => {
         Ajax.get('comments/post/' + props.post._id, null, function (response) {
             setComment(response);
         });
-
+        return () => {
+            setOwner();
+            setUser();
+        };
     }, [setLoading, addComments]);
 
 

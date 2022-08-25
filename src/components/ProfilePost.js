@@ -38,7 +38,7 @@ function ProfilePost(props) {
             });
         }
 
-        return () => { isMounted = false };
+        return () => { isMounted = false; setShowModal(); setLiked(); setComment(); setProfileOwner(); };
     }, [ajaxResponse, setLoading, decoded.uid, props]);
 
     var backgroundImageStyle = {

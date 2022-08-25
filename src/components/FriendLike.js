@@ -14,7 +14,8 @@ export const FriendLike = (props) => {
             setLoading(false)
         });
         return () => {
-
+            setUser();
+            props = null
         };
     }, [setLoading]);
 

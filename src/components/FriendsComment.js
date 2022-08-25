@@ -11,6 +11,7 @@ export const FriendsComment = (props) => {
             //console.log(props.post._id)
         });
         return () => {
+            setComment();
         };
     }, []);
 
