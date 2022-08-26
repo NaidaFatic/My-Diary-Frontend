@@ -7,12 +7,21 @@ export const TextField = ({ label, ...props }) => {
     return (
         <div className="mb-2">
             <h4 htmlFor={field.name}>{label}</h4>
-            <input placeholder={field.placeholder}
-                className={`form-control shadow-none ${meta.touched && meta.error && 'is-invalid'}`}
-                {...field} {...props}
-                autoComplete="off"
-                value={field.value || ''}
-            />
+            {
+                (field.name === "description") ?
+                    <textarea placeholder={field.placeholder}
+                        className={`form-control shadow-none ${meta.touched && meta.error && 'is-invalid'}`}
+                        {...field} {...props}
+                        autoComplete="off"
+                        value={field.value || ''}
+                    /> :
+                    <input placeholder={field.placeholder}
+                        className={`form-control shadow-none ${meta.touched && meta.error && 'is-invalid'}`}
+                        {...field} {...props}
+                        autoComplete="off"
+                        value={field.value || ''}
+                    />
+            }
             <ErrorMessage component="div" name={field.name} className="error" />
         </div>
     )

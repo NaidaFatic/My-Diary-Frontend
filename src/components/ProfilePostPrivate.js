@@ -7,7 +7,7 @@ import { Formik, Form } from "formik";
 import { TextField } from "../components/TextField";
 import jwt_decode from "jwt-decode";
 
-function ProfilePost(props) {
+function ProfilePostPrivate(props) {
     const [showModal, setShowModal] = useState(false);
     const [showModalPost, setShowModalPost] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -92,7 +92,7 @@ function ProfilePost(props) {
             </main >
         );
     } else {
-        return (props.post.private ? <></> :
+        return (props.post.private ?
             <div>
                 <div className="flex flex-col postWrap" style={backgroundImageStyle} onClick={() => setShowModalPost(true)} >
                     <p className="postName grow">
@@ -264,9 +264,9 @@ function ProfilePost(props) {
                         </>
                     ) : null
                 }
-            </div >
+            </div > : null
         );
     }
 }
 
-export default ProfilePost;
+export default ProfilePostPrivate;

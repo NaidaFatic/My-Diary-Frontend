@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { Ajax } from "../utils/axios";
 import { IconLoader2 } from '@tabler/icons';
 import ProfilePost from "../components/ProfilePost";
+import ProfilePostPrivate from "../components/ProfilePostPrivate";
 
 function ProfilePosts(props) {
     const params = useParams();
@@ -32,12 +33,17 @@ function ProfilePosts(props) {
         );
     } else {
         return (
-            <>
-                {
-                    len && React.Children.toArray(
+            <>{
+                (props.page === "DIARY") ? <>
+                    {len && React.Children.toArray(
+                        posts.map((val) => <ProfilePostPrivate post={val} id={params.id} owner={props.owner} change={rend} openModal={props.openModal} />)
+                    )
+                    }</> : <>
+                    {len && React.Children.toArray(
                         posts.map((val) => <ProfilePost post={val} id={params.id} owner={props.owner} change={rend} openModal={props.openModal} />)
                     )
-                }
+                    }</>
+            }
             </>
         );
     }
