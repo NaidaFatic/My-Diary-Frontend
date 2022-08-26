@@ -1,7 +1,7 @@
 import "./profilepage.css";
 import { IconUser, IconEdit, IconBookmark, IconPlus, IconLoader2, IconUserPlus, IconColorPicker } from "@tabler/icons";
 import React, { useState, useEffect } from 'react';
-import { useParams, useLocation } from "react-router-dom";
+import { useParams, useLocation, Link } from "react-router-dom";
 import { Ajax } from "../utils/axios";
 import jwt_decode from "jwt-decode";
 import { Formik, Form } from "formik";
@@ -156,7 +156,9 @@ function DiaryPage(props) {
                                 {owner.age && <h5>Age: {owner.age}</h5>}
                             </div>
                             <div className="flex flex-col" style={{ height: "fit-content" }}>
-                                <a href="/diary"><IconBookmark className="flex-start" /></a>
+                                {profileOwner && <Link to={{
+                                    pathname: '/diary/' + owner._id
+                                }}><IconBookmark className="flex-start" /></Link>}
                                 {profileOwner && <IconEdit className="flex-end" onClick={() => setShowModal1(true)} />}
                                 {!profileOwner && !addFriend && <IconUserPlus className="flex-end mr-0 " onClick={addFriendFunction} />}
                             </div>

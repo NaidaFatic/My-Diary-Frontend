@@ -19,6 +19,8 @@ function ProfilePosts(props) {
             setLoading(false);
             setLen(response.length > 0)
         });
+        return () => { setChanged(); setPosts() };
+
     }, [setLoading, params, changed]);
 
     function rend() {

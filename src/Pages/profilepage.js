@@ -1,7 +1,7 @@
 import "./profilepage.css";
 import { IconUser, IconEdit, IconBookmark, IconPlus, IconLoader2, IconUserPlus, IconColorPicker } from "@tabler/icons";
 import React, { useState, useEffect } from 'react';
-import { useParams, useLocation } from "react-router-dom";
+import { useParams, useLocation, Link } from "react-router-dom";
 import { Ajax } from "../utils/axios";
 import jwt_decode from "jwt-decode";
 import { Formik, Form } from "formik";
@@ -155,7 +155,9 @@ function ProfilePage(props) {
                                 {owner.age && <h5>Age: {owner.age}</h5>}
                             </div>
                             <div className="flex flex-col" style={{ height: "fit-content" }}>
-                                <a href="/diary"><IconBookmark className="flex-start" /></a>
+                                {profileOwner && <Link to={{
+                                    pathname: '/diary/' + owner._id
+                                }}><IconBookmark className="flex-start" /></Link>}
                                 {profileOwner && <IconEdit className="flex-end" onClick={() => setShowModal1(true)} />}
                                 {!profileOwner && !addFriend && <IconUserPlus className="flex-end mr-0 " onClick={addFriendFunction} />}
                             </div>
@@ -163,17 +165,18 @@ function ProfilePage(props) {
                     </section>
                     <hr />
                     {/* <div className="month"><p>May</p></div> */}
-                    {!isFriends ? <p className="px-5 pt-5"> Add {owner.name} to friends in order to see posts</p> :
-                        <section className="grid md:grid-cols-4 grid-cols-2 gap-4 posts">
-                            {posts}
-                            {profileOwner && <div>
-                                <div className="flex flex-col postWrap">
-                                    <p className="postName grow m-auto pt:0">
-                                        <IconPlus className="mt-20" onClick={() => setShowModal2(true)} />
-                                    </p>
-                                </div>
-                            </div>}
-                        </section>
+                    {
+                        !isFriends ? <p className="px-5 pt-5"> Add {owner.name} to friends in order to see posts</p> :
+                            <section className="grid md:grid-cols-4 grid-cols-2 gap-4 posts">
+                                {posts}
+                                {profileOwner && <div>
+                                    <div className="flex flex-col postWrap">
+                                        <p className="postName grow m-auto pt:0">
+                                            <IconPlus className="mt-20" onClick={() => setShowModal2(true)} />
+                                        </p>
+                                    </div>
+                                </div>}
+                            </section>
                     }
 
                     {
