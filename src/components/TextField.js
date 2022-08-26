@@ -3,7 +3,7 @@ import { ErrorMessage, useField } from 'formik';
 
 export const TextField = ({ label, ...props }) => {
     const [field, meta] = useField(props);
-
+    console.log(props)
     return (
         <div className="mb-2">
             <h4 htmlFor={field.name}>{label}</h4>
@@ -13,8 +13,7 @@ export const TextField = ({ label, ...props }) => {
                         className={`form-control shadow-none ${meta.touched && meta.error && 'is-invalid'}`}
                         {...field} {...props}
                         autoComplete="off"
-                        value={field.value || ''}
-                    /> :
+                    > {field.value}</textarea> :
                     <input placeholder={field.placeholder}
                         className={`form-control shadow-none ${meta.touched && meta.error && 'is-invalid'}`}
                         {...field} {...props}
