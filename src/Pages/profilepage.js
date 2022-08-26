@@ -271,7 +271,7 @@ function ProfilePage(props) {
                                                             {postPicture && <img alt="Post image" src={postPicture} width="200px" />}
                                                             <input type="button" className="bg-submit text-white font-bold uppercase text-sm px-6 py-3 rounded outline-none mr-1 mb-1 ease-linear transition-all duration-150" onClick={uploadPostPic} value="Upload image" />
                                                             <TextField label="Name" name="name" type="text" placeholder="Post Name" />
-                                                            <TextField label="Description" name="description" type="text" placeholder="Description" />
+                                                            <textarea label="Description" name="description" type="text" placeholder="Description" />
                                                         </div>
                                                     </div>
                                                     {/*footer*/}

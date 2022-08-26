@@ -19,6 +19,7 @@ function ProfilePost(props) {
     const [ajaxResponse, setAjaxResponse] = useState(false);
     var decoded = jwt_decode(localStorage.getItem('token'));
     const [profileOwner, setProfileOwner] = useState(false);
+    const [render, setRender] = useState(<></>);
 
     useEffect(() => {
         let isMounted = true;
@@ -93,7 +94,7 @@ function ProfilePost(props) {
             </main >
         );
     } else {
-        return (
+        return ((props.post.private) ? <></> :
             <div>
                 <div className="flex flex-col postWrap" style={backgroundImageStyle} onClick={() => setShowModalPost(true)} >
                     <p className="postName grow">
@@ -101,7 +102,6 @@ function ProfilePost(props) {
                     </p>
                 </div>
                 <p className="postDescription">{props.post.name}</p>
-
                 {
                     showModal ? (
                         <>
@@ -205,7 +205,7 @@ function ProfilePost(props) {
                                                         >
                                                             <Form>
                                                                 <TextField label="Post Name" name="name" type="text" />
-                                                                <TextField label="Description" name="description" type="text" />
+                                                                <textarea label="Description" name="description" type="text" />
                                                                 <hr></hr>
 
                                                                 {/*footer*/}

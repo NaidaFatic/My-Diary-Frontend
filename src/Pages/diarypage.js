@@ -24,6 +24,7 @@ function DiaryPage(props) {
         to: '2022-05-05T20:00:00+00:00',
         title: 'This is also another event'
     }];
+
     const [calEvents, setCalEvents] = useState(<Calendar
         onClickTimeLine={(event) => {
             console.log(event)

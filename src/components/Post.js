@@ -85,50 +85,52 @@ export const Post = (props) => {
         );
     } else {
         return (
-            <div className="post">
-                <section>
-                    <div className="post-img flex flex-wrap items-center ">
-                        <Link to={{
-                            pathname: '/profile/' + owner._id
-                        }}>{owner.profilePic ? <div className="user-img-picture flex-none" style={backgroundImageStyleOwner} /> : <IconUser className="user-img flex-none" />}
-                        </Link>
-                        <h4 className="font-bold">{owner.name} {owner.surname}</h4>
-                    </div>
-                </section>
-                <section>
-                    {props.post.picture &&
-                        <div>
-                            <div className="post-photo">
-                                <img src={props.post.picture} height="45" width="100" style={{ width: '100%' }} alt="Post image" />
-                            </div>
+            (!props.post.private) ?
+                <div className="post">
+                    <section>
+                        <div className="post-img flex flex-wrap items-center ">
+                            <Link to={{
+                                pathname: '/profile/' + owner._id
+                            }}>{owner.profilePic ? <div className="user-img-picture flex-none" style={backgroundImageStyleOwner} /> : <IconUser className="user-img flex-none" />}
+                            </Link>
+                            <h4 className="font-bold">{owner.name} {owner.surname}</h4>
                         </div>
-                    }
-                    <div className="px-5">
-                        <div className="post-name">
-                            <h4 className="font-bold">{props.post.name}</h4>
-                        </div>
-                        <div className="post-desc">
-                            <p>{props.post.description}</p>
-                        </div>
-                        <div className="post-comment flex">
-                            <IconHeart className={`ml-0 ${liked ? 'like' : 'dislike'}`} onClick={like} />
-                            <IconMessage2 className={isComment ? 'comment' : 'uncomment'} onClick={showComment} />
-                        </div>
-                        <div className="pb-5">
-                            {comment && React.Children.toArray(
-                                comment.map((val) => <div className={isComment ? 'showComment' : 'notShowComment'}><Comments comment={val} /></div>)
-                            )}
+                    </section>
+                    <section>
+                        {props.post.picture &&
                             <div>
-                                <div className="flex items-center ml-5">
-                                    {user.profilePic ? <div className="user-img-picture flex-none" style={backgroundImageStyle} /> : <IconUser className="user-img flex-none" />}
-                                    <input type="text" name="comment" ref={inputMessage} />
-                                    <IconSend onClick={addComment} />
+                                <div className="post-photo">
+                                    <img src={props.post.picture} height="45" width="100" style={{ width: '100%' }} alt="Post image" />
+                                </div>
+                            </div>
+                        }
+                        <div className="px-5">
+                            <div className="post-name">
+                                <h4 className="font-bold">{props.post.name}</h4>
+                            </div>
+                            <div className="post-desc">
+                                <p>{props.post.description}</p>
+                            </div>
+                            <div className="post-comment flex">
+                                <IconHeart className={`ml-0 ${liked ? 'like' : 'dislike'}`} onClick={like} />
+                                <IconMessage2 className={isComment ? 'comment' : 'uncomment'} onClick={showComment} />
+                            </div>
+                            <div className="pb-5">
+                                {comment && React.Children.toArray(
+                                    comment.map((val) => <div className={isComment ? 'showComment' : 'notShowComment'}><Comments comment={val} /></div>)
+                                )}
+                                <div>
+                                    <div className="flex items-center ml-5">
+                                        {user.profilePic ? <div className="user-img-picture flex-none" style={backgroundImageStyle} /> : <IconUser className="user-img flex-none" />}
+                                        <input type="text" name="comment" ref={inputMessage} />
+                                        <IconSend onClick={addComment} />
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </section >
-            </div >
+                    </section >
+                </div > :
+                null
         )
     }
 }
