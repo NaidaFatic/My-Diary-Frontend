@@ -23,6 +23,7 @@ function ProfilePage(props) {
     const [profileOwner, setProfileOwner] = useState(false);
     const [visitor, setVisitor] = useState(false);
     const [addFriend, setaddFriend] = useState(false);
+    const [isFriends, setIsFriends] = useState(false);
     const location = useLocation()
     const [openModal, setOpenModal] = useState(false)
     const [postPicture, setPostPicture] = useState()
@@ -45,6 +46,9 @@ function ProfilePage(props) {
             setLoading(false);
             if (response.friends.includes(params.id) || response.friendsRequest.includes(params.id)) {
                 setaddFriend(true);
+            }
+            if (response.friends.includes(params.id) || profileOwner) {
+                setIsFriends(true);
             }
         });
         return () => {
@@ -160,7 +164,7 @@ function ProfilePage(props) {
                     <hr />
                     {/* <div className="month"><p>May</p></div> */}
                     <section className="grid md:grid-cols-4 grid-cols-2 gap-4 posts">
-                        {posts}
+                        {isFriends ? posts : <p>Add {owner.name} to see posts</p>}
                         {profileOwner && <div>
                             <div className="flex flex-col postWrap">
                                 <p className="postName grow m-auto pt:0">
