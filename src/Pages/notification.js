@@ -59,6 +59,7 @@ function NotificationPage(props) {
     function clear(e) {
         inputSearch.current.value = ""
         setsearchIcon(false)
+        setSearchUsers()
     }
 
     if (!profileOwner) {
