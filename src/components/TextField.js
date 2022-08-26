@@ -3,7 +3,7 @@ import { ErrorMessage, useField } from 'formik';
 
 export const TextField = ({ label, ...props }) => {
     const [field, meta] = useField(props);
-    console.log(props)
+    //console.log(props)
     return (
         <div className="mb-2">
             <h4 htmlFor={field.name}>{label}</h4>

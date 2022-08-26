@@ -49,7 +49,7 @@ function NotificationPage(props) {
                 console.log('Request canceled', thrown.message);
             }
         });
-        return () => cancel()
+        return () => { cancel(); }
     }, [params, decoded.uid, profileOwner, searchIcon, searchText]);
     //console.log(searchUsers)
     function search(e) {

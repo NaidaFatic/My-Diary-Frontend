@@ -163,16 +163,19 @@ function ProfilePage(props) {
                     </section>
                     <hr />
                     {/* <div className="month"><p>May</p></div> */}
-                    <section className="grid md:grid-cols-4 grid-cols-2 gap-4 posts">
-                        {isFriends ? posts : <p>Add {owner.name} to see posts</p>}
-                        {profileOwner && <div>
-                            <div className="flex flex-col postWrap">
-                                <p className="postName grow m-auto pt:0">
-                                    <IconPlus className="mt-20" onClick={() => setShowModal2(true)} />
-                                </p>
-                            </div>
-                        </div>}
-                    </section>
+                    {!isFriends ? <p className="px-5 pt-5"> Add {owner.name} to friends in order to see posts</p> :
+                        <section className="grid md:grid-cols-4 grid-cols-2 gap-4 posts">
+                            {posts}
+                            {profileOwner && <div>
+                                <div className="flex flex-col postWrap">
+                                    <p className="postName grow m-auto pt:0">
+                                        <IconPlus className="mt-20" onClick={() => setShowModal2(true)} />
+                                    </p>
+                                </div>
+                            </div>}
+                        </section>
+                    }
+
                     {
                         showModal1 ? (
                             <>
