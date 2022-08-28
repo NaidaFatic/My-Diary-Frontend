@@ -110,6 +110,12 @@ input[type="button"]:focus {
   background: rgba(17, 75, 95, 0.72);
 }
 
+.picture-button {
+  width: 220px !important;
+  height: auto;
+  background-position: center;
+  background-size: cover;
+}
 @media screen and (max-width: 768px) {
   .modal .user-img {
     width: calc(3rem + 1vw);

@@ -10,6 +10,7 @@ import ProfilePosts from "../components/ProfilePosts";
 import { TextField } from "../components/TextField";
 import { ToastContainer } from 'react-toastify';
 import { WarningUnauthorized } from "../components/WarningUnauthorized"
+import { SketchPicker } from 'react-color';
 
 function DiaryPage(props) {
     props.setCurrentPage("DIARY");
@@ -29,6 +30,7 @@ function DiaryPage(props) {
     const location = useLocation()
     const [openModal, setOpenModal] = useState(false)
     const [postPicture, setPostPicture] = useState()
+    const [colorBackground, setColorBackground] = useState("#c4c4c469")
 
     useEffect(() => {
         setLoading(true);
@@ -135,6 +137,23 @@ function DiaryPage(props) {
         //console.log(postPicture);
         widget.open()
     }
+
+    const handleChangeComplete = (color) => {
+        setColorBackground(color.hex);
+        console.log(color.hex);
+    };
+
+    if (postPicture) {
+        var backgroundImageStyleAddImage = {
+            backgroundImage: `url(${postPicture})`
+        };
+    } else {
+        var backgroundImageStyleAddImage = {
+            backgroundColor: '#b0b0b0'
+        };
+    }
+
+
     if (!profileOwner) {
         return (
             < main >
@@ -253,7 +272,7 @@ function DiaryPage(props) {
                                     <div
                                         className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
                                     >
-                                        <div className="relative my-6 mx-auto max-w-3xl" style={{ width: '75em' }}>
+                                        <div className="relative my-6 mx-auto max-w-3xl pt-12" style={{ width: '75em' }}>
                                             {/*content*/}
                                             <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                                                 {/*header*/}
@@ -273,7 +292,7 @@ function DiaryPage(props) {
                                                 {/*body*/}
                                                 <Formik
                                                     enableReinitialize
-                                                    initialValues={{ name: '', description: '', ownerID: decoded.uid, picture: postPicture, private: true }}
+                                                    initialValues={{ name: '', description: '', ownerID: decoded.uid, picture: postPicture, private: true, color: colorBackground }}
                                                     validationSchema={validation}
                                                     onSubmit={(values, actions) => {
                                                         postPost(values, actions);
@@ -283,10 +302,14 @@ function DiaryPage(props) {
                                                     <Form>
                                                         <div className="relative p-6 m-auto modal">
                                                             <div className="basis-2/3">
-                                                                {postPicture && <img alt="Post image" src={postPicture} width="200px" />}
-                                                                <input type="button" className="bg-submit text-white font-bold uppercase text-sm px-6 py-3 rounded outline-none mr-1 mb-1 ease-linear transition-all duration-150" onClick={uploadPostPic} value="Upload image" />
+                                                                <h4>Pick color and image for your post</h4>
+                                                                <div className="flex justify-around py-3">
+                                                                    <SketchPicker color={colorBackground}
+                                                                        onChangeComplete={handleChangeComplete} />
+                                                                    <input type="button" className="picture-button text-white font-bold uppercase text-sm px-6 py-3 rounded outline-none mr-1 mb-1 ease-linear transition-all duration-150" style={backgroundImageStyleAddImage} onClick={uploadPostPic} value="Upload image" />
+                                                                </div>
                                                                 <TextField label="Name" name="name" type="text" placeholder="Post Name" />
-                                                                <TextField label="Description" name="description" type="text" placeholder="Description" className="w-100" />
+                                                                <TextField label="Description" name="description" type="text" placeholder="Description" />
                                                             </div>
                                                         </div>
                                                         {/*footer*/}

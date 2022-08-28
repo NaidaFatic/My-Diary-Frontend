@@ -85,6 +85,16 @@ function ProfilePostPrivate(props) {
         });
     }
 
+    if (props.post.picture) {
+        var backgroundImageStyle = {
+            backgroundImage: `url(${props.post.picture})`
+        }
+    } else {
+        var backgroundImageStyle = {
+            backgroundColor: `${props.post.color}`
+        }
+    }
+
     if (loading || !props.post) {
         return (
             <main>

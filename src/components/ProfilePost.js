@@ -40,9 +40,15 @@ function ProfilePost(props) {
         return () => { isMounted = false; setShowModal(); setLiked(); setComment(); setProfileOwner(); };
     }, [ajaxResponse, setLoading, decoded.uid, props]);
 
-    var backgroundImageStyle = {
-        backgroundImage: `url(${props.post.picture})`
-    };
+    if (props.post.picture) {
+        var backgroundImageStyle = {
+            backgroundImage: `url(${props.post.picture})`
+        }
+    } else {
+        var backgroundImageStyle = {
+            backgroundColor: `${props.post.color}`
+        }
+    }
 
     var backgroundImageStyleProfile = {
         backgroundImage: `url(${props.owner.profilePic})`
