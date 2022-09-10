@@ -4,14 +4,6 @@
   margin-bottom: 20px;
 }
 
-.user-img {
-  width: calc(2.5rem + 1vw);
-  height: auto;
-  background: #ebebeb;
-  border-radius: 100%;
-  margin-right: 5%;
-}
-
 .profile section {
   margin: 20px;
 }
@@ -64,11 +56,6 @@
   padding-block: 20px;
 }
 
-.modal .user-img {
-  max-width: calc(5rem + 1vw);
-  margin-right: 40px;
-}
-
 .month {
   width: 105px;
   height: 0;
@@ -86,14 +73,16 @@
   right: -10px;
   top: -19px;
 }
-.user-img-picture {
-  width: calc(1.5rem + 1vw);
-  height: calc(1.5rem + 1vw);
+.user-img-picture,
+.user-img {
+  width: calc(3.5rem);
+  height: calc(3.5rem);
   background: #ebebeb;
   border-radius: 100%;
   margin-inline: 10px;
   background-position: center;
   background-size: cover;
+  margin-bottom: 20px;
 }
 .edit-picture {
   position: absolute;
@@ -116,10 +105,41 @@ input[type="button"]:focus {
   background-position: center;
   background-size: cover;
 }
+form .user-img-picture {
+  width: calc(5rem);
+  height: calc(5rem);
+}
+
+.post-pic-container {
+  width: "80%";
+}
+
+.post-modal {
+  width: 70rem;
+  height: 100%;
+  padding: 40px;
+  padding-bottom: 20px;
+}
+
 @media screen and (max-width: 768px) {
-  .modal .user-img {
-    width: calc(3rem + 1vw);
-    height: calc(3rem + 1vw);
-    margin-bottom: 40px;
+  .user-img-picture,
+  .user-img {
+    width: calc(3rem);
+    height: calc(3rem);
+  }
+
+  .post-pic-container {
+    width: "100%";
+    margin-bottom: 20px;
+  }
+
+  .post-modal {
+    width: 70rem;
+    padding: 40px;
+  }
+}
+@media screen and (max-width: 640px) {
+  .post-color {
+    width: -webkit-fill-available !important;
   }
 }

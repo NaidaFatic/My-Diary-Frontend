@@ -25,5 +25,10 @@ header {
   background: white;
   position: fixed;
   width: -webkit-fill-available;
-  z-index: 100;
+}
+
+@media screen and (min-width: 767px) {
+  header {
+    padding-inline: 20px;
+  }
 }

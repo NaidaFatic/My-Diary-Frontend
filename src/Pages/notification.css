@@ -18,14 +18,6 @@
   overflow-wrap: anywhere;
 }
 
-.user-img {
-  width: calc(1.5rem + 1vw);
-  height: auto;
-  background: #ebebeb;
-  margin-right: 10px;
-  border-radius: 100%;
-}
-
 .post-photo {
   background: #ebebeb;
   max-width: 100%;

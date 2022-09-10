@@ -58,7 +58,13 @@ function DiaryPage(props) {
         return () => {
         };
     }, [setLoading, params, updatedProfile, decoded.uid, profileOwner, setPosts, addFriend]);
-    //console.log(addFriend)
+
+    useEffect(() => {
+        if (showModal1 || showModal2) { document.body.style.overflow = 'hidden'; }
+        else { document.body.style.overflow = 'auto'; }
+
+    }, [showModal2, showModal1]);
+
     function updateProfile(values, actions) {
 
         for (var key of Object.keys(values)) {
@@ -208,7 +214,7 @@ function DiaryPage(props) {
                                     <div
                                         className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
                                     >
-                                        <div className="relative my-6 mx-auto max-w-3xl" style={{ width: '75em' }}>
+                                        <div className="relative my-6 mx-auto max-w-3xl post-modal">
                                             {/*content*/}
                                             <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                                                 {/*header*/}
@@ -234,7 +240,7 @@ function DiaryPage(props) {
                                                 >
                                                     <Form>
                                                         <div className="relative p-6 md:flex modal">
-                                                            {owner.profilePic ? (<><IconColorPicker className="edit-picture" onClick={uploadProfilePic} /><div className="user-img-picture flex-none" style={backgroundImageStyle} /></>) : (<IconUser className="user-img flex-none" />)}
+                                                            {owner.profilePic ? (<><div className="user-img-picture flex-none" onClick={uploadProfilePic} style={backgroundImageStyle} /></>) : (<IconUser onClick={uploadProfilePic} className="user-img flex-none" />)}
                                                             <div className="basis-2/3">
                                                                 <TextField label="Name" name="name" type="text" placeholder="Name" />
                                                                 <TextField label="Surname" name="surname" type="text" placeholder="Surname" />
@@ -272,7 +278,7 @@ function DiaryPage(props) {
                                     <div
                                         className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
                                     >
-                                        <div className="relative my-6 mx-auto max-w-3xl pt-12" style={{ width: '75em' }}>
+                                        <div className="relative my-6 mx-auto max-w-3xl pt-12 post-modal " style={{ width: '75em' }}>
                                             {/*content*/}
                                             <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                                                 {/*header*/}
@@ -303,10 +309,10 @@ function DiaryPage(props) {
                                                         <div className="relative p-6 m-auto modal">
                                                             <div className="basis-2/3">
                                                                 <h4>Pick color and image for your post</h4>
-                                                                <div className="flex justify-around py-3">
+                                                                <div className="flex-none sm:flex justify-around py-3">
                                                                     <SketchPicker color={colorBackground}
-                                                                        onChangeComplete={handleChangeComplete} />
-                                                                    <input type="button" className="picture-button text-white font-bold uppercase text-sm px-6 py-3 rounded outline-none mr-1 mb-1 ease-linear transition-all duration-150" style={backgroundImageStyleAddImage} onClick={uploadPostPic} value="Upload image" />
+                                                                        onChangeComplete={handleChangeComplete} className="post-color " />
+                                                                    <input type="button" className="picture-button post-color mt-5 md:mt-0 text-white font-bold uppercase text-sm px-6 py-3 rounded outline-none mr-1 mb-1 ease-linear transition-all duration-150" style={backgroundImageStyleAddImage} onClick={uploadPostPic} value="Upload image" />
                                                                 </div>
                                                                 <TextField label="Name" name="name" type="text" placeholder="Post Name" />
                                                                 <TextField label="Description" name="description" type="text" placeholder="Description" />

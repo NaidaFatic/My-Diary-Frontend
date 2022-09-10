@@ -7,7 +7,7 @@ export const useRedirect = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        const token = sessionStorage.getItem("token");
+        const token = localStorage.getItem("token");
         if (token) {
             var decoded = jwt_decode(localStorage.getItem('token'));
             navigate("/feed/" + decoded.uid);

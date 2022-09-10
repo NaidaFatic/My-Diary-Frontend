@@ -40,6 +40,12 @@ function ProfilePostPrivate(props) {
         return () => { isMounted = false; setShowModal(); setLiked(); setComment(); setProfileOwner(); };
     }, [ajaxResponse, setLoading, decoded.uid, props]);
 
+    useEffect(() => {
+        if (showModalPost) { document.body.style.overflow = 'hidden'; }
+        else { document.body.style.overflow = 'auto'; }
+
+    }, [showModalPost]);
+
     var backgroundImageStyle = {
         backgroundImage: `url(${props.post.picture})`
     };
@@ -177,7 +183,7 @@ function ProfilePostPrivate(props) {
                             <div
                                 className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
                             >
-                                <div className="relative my-6 mx-auto" style={{ width: '70rem', height: '-webkit-fill-available', paddingBlock: '5%' }}>
+                                <div className="relative my-6 mx-auto post-modal" >
                                     {/*content*/}
                                     <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                                         {/*header*/}
@@ -197,14 +203,14 @@ function ProfilePostPrivate(props) {
                                         </div>
                                         {/*body*/}
                                         <div className="relative p-6 modal">
-                                            <div className="flex">
+                                            <div className="md:flex flex-none">
                                                 {props.post.picture &&
-                                                    <div style={{ width: '80%' }} >
+                                                    <div className="post-pic-container">
                                                         <img src={props.post.picture} style={{ width: '100%' }} className="ml-0" alt="Post image" />
                                                     </div>
                                                 }
                                                 {editing ?
-                                                    <div className="ml-5" style={{ width: '-webkit-fill-available' }}>
+                                                    <div className="md:ml-5" style={{ width: '-webkit-fill-available' }}>
                                                         <Formik
                                                             enableReinitialize='true'
                                                             initialValues={{ name: props.post.name, description: props.post.description }}
@@ -226,7 +232,7 @@ function ProfilePostPrivate(props) {
                                                                     >
                                                                         Delete
                                                                     </button>
-                                                                    <div>
+                                                                    <div className="flex">
                                                                         <button
                                                                             className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                                                                             type="button"
@@ -244,7 +250,7 @@ function ProfilePostPrivate(props) {
                                                         </Formik>
                                                     </div>
                                                     :
-                                                    <div className="ml-5" style={{ width: '-webkit-fill-available' }}>
+                                                    <div className="md:ml-5" style={{ width: '-webkit-fill-available' }}>
                                                         <div className="flex justify-between">
                                                             <h3>{props.post.name}</h3>
                                                             {profileOwner && <IconEdit className="editPost flex-none self-end" onClick={() => setEditing(true)} />}
