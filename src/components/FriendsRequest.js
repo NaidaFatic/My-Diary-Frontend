@@ -5,9 +5,8 @@ export const FriendsRequest = (props) => {
 
     if (!props.request) {
         return (
-            <main>
-                Loading...
-            </main >
+            <>
+            </>
         );
     } else {
         return (

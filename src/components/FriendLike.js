@@ -28,9 +28,16 @@ export const FriendLike = (props) => {
     //console.log(user)
     if (!props.user || loading || !user) {
         return (
-            <main>
-                Loading...
-            </main >
+            <>
+                <div className="post-img flex flex-wrap items-center">
+                    <IconUser className="user-img flex-none" />
+                    <div>
+                        <p>Loading..</p>
+                    </div>
+                    <div className="like-post text-right grow flex justify-end items-center"></div>
+                </div>
+                <hr></hr>
+            </>
         );
     } else {
         return (

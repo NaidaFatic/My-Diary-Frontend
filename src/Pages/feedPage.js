@@ -1,5 +1,6 @@
 import "./feedpage.css";
 import "../index.css";
+import loadingGif from "../img/loading.gif";
 import React, { useState, useEffect } from 'react';
 import { Post } from "../components/Post";
 import { Ajax } from "../utils/axios";
@@ -50,7 +51,7 @@ function FeedPage(props) {
     if (loading || !items || !user.friends) {
         return (
             <main>
-                Loading...
+
             </main >
         );
     } else {
@@ -61,8 +62,8 @@ function FeedPage(props) {
                     dataLength={items.length}
                     next={fetchMoreData}
                     hasMore={hasMore}
-                    loader={<>Loading...</>}
-                    endMessage={<>End</>}
+                    loader={<><img src={loadingGif} alt="loading page" width="101" height="70" /></>}
+                    endMessage={<>You have reached the end</>}
                 >
                     <div>
                         {user.friends ? items.map((posts) => (

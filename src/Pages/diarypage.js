@@ -1,4 +1,5 @@
 import "./profilepage.css";
+import loadingGif from "../img/loading.gif";
 import { IconUser, IconEdit, IconBookmark, IconPlus, IconLoader2, IconUserPlus, IconColorPicker, IconLock } from "@tabler/icons";
 import React, { useState, useEffect } from 'react';
 import { useParams, useLocation, Link } from "react-router-dom";
@@ -169,9 +170,7 @@ function DiaryPage(props) {
     } if (profileOwner) {
         if (loading || !owner) {
             return (
-                <main>
-                    <IconLoader2 className="m-auto" />
-                </main >
+                <><img src={loadingGif} alt="loading page" width="101" height="70" /></>
             );
         } else {
             return (
@@ -199,7 +198,7 @@ function DiaryPage(props) {
                         </section>
                         <hr />
                         <section className="grid md:grid-cols-4 grid-cols-2 gap-4 posts">
-                            {isFriends ? posts : <p>Add {owner.name} to see posts</p>}
+                            {isFriends ? posts : <ProfilePosts notFriends={owner.name} />}
                             {profileOwner && <div>
                                 <div className="flex flex-col postWrap">
                                     <p className="postName grow m-auto pt:0">

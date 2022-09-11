@@ -63,3 +63,11 @@
   width: -webkit-fill-available;
   cursor: pointer;
 }
+.searchFriend {
+  border-bottom: rgba(105, 105, 105, 0.399) 1px solid;
+}
+.searchFriend svg {
+  width: 2.4rem;
+  height: 2.4rem;
+  margin-bottom: 0px;
+}

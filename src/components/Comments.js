@@ -29,9 +29,15 @@ export const Comments = (props) => {
     }
     if (!props || loading || !user) {
         return (
-            <main>
-                Loading...
-            </main >
+            <div className="mb-5">
+                <div className="flex items-center" >
+                    <IconUser className="user-img flex-none" />
+                    <div className="commentDiv">
+                        <input type="text" value="Loading" readOnly disabled />
+                        <small className="ml-2"> </small>
+                    </div>
+                </div>
+            </div >
         );
     } else {
         return (

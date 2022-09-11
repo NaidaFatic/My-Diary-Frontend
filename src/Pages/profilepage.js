@@ -5,6 +5,7 @@ import { useParams, useLocation, Link } from "react-router-dom";
 import { Ajax } from "../utils/axios";
 import jwt_decode from "jwt-decode";
 import { Formik, Form } from "formik";
+import loadingGif from "../img/loading.gif";
 import * as Yup from "yup";
 import ProfilePosts from "../components/ProfilePosts";
 import { TextField } from "../components/TextField";
@@ -161,9 +162,7 @@ function ProfilePage(props) {
 
     if (loading || !owner) {
         return (
-            <main>
-                <IconLoader2 className="m-auto" />
-            </main >
+            <><img src={loadingGif} alt="loading page" width="101" height="70" /></>
         );
     } else {
         return (
@@ -191,7 +190,7 @@ function ProfilePage(props) {
                     <hr />
                     {/* <div className="month"><p>May</p></div> */}
                     {
-                        !isFriends ? <p className="px-5 pt-5"> Add {owner.name} to friends in order to see posts</p> :
+                        !isFriends ? <ProfilePosts notFriends={owner.name} /> :
                             <section className="grid md:grid-cols-4 grid-cols-2 gap-4 posts">
                                 {posts}
                                 {profileOwner && <div>

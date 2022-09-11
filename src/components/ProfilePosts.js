@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from "react-router-dom";
 import { Ajax } from "../utils/axios";
-import { IconLoader2 } from '@tabler/icons';
+import loadingGif from "../img/loading.gif";
 import ProfilePost from "../components/ProfilePost";
 import ProfilePostPrivate from "../components/ProfilePostPrivate";
 
@@ -29,9 +29,11 @@ function ProfilePosts(props) {
 
     if (loading || !props.owner) {
         return (
-            <main>
-                <IconLoader2 className="m-auto" />
-            </main >
+            <><img src={loadingGif} alt="loading page" width="101" height="70" /></>
+        );
+    } if (props.notFriends) {
+        return (
+            <><p>Add {props.notFriends} as a friend in order to see the posts</p></>
         );
     } else {
         return (

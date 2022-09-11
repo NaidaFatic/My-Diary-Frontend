@@ -5,9 +5,8 @@ export const FriendsLike = (props) => {
 
     if (!props.likes) {
         return (
-            <main>
-                Loading...
-            </main >
+            <>
+            </>
         );
 
     } else {

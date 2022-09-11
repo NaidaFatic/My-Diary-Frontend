@@ -25,9 +25,12 @@ export const SearchFriend = (props) => {
 
     if (loading || !user) {
         return (
-            <main>
-                <IconLoader2 className="m-auto" />
-            </main >
+            <>
+                <div className="searchFriend flex py-2">
+                    <IconUser className="user-img flex-none" />
+                    <input label="Name" name="name" type="text" value="Loading.." readOnly />
+                </div>
+            </>
         );
     } else {
         return (

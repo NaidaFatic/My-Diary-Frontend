@@ -1,4 +1,5 @@
 import "../index.css";
+import loadingGif from "../img/loading.gif";
 import React, { useState, useEffect, useRef } from 'react';
 import { Comments } from "../components/Comments";
 import { IconUser, IconHeart, IconMessage2, IconSend, IconLoader2 } from '@tabler/icons';
@@ -57,8 +58,7 @@ export const Post = (props) => {
     };
 
     const addComment = (e) => {
-        setAddComments(inputMessage.current.value);
-        Ajax.post('comments/' + props.post._id, { "ownerID": decoded.uid, "description": inputMessage.current.value }, function (response) { console.log(response) });
+        Ajax.post('comments/' + props.post._id, { "ownerID": decoded.uid, "description": inputMessage.current.value }, function (response) { setAddComments(response) });
     };
 
     const showComment = (e) => {
@@ -80,7 +80,7 @@ export const Post = (props) => {
     if (loading || !owner || !user) {
         return (
             <main>
-                <IconLoader2 className="m-auto" />
+                <img src={loadingGif} alt="loading page" width="101" height="70" />
             </main >
         );
     } else {
@@ -116,8 +116,8 @@ export const Post = (props) => {
                                 <IconMessage2 className={isComment ? 'comment' : 'uncomment'} onClick={showComment} />
                             </div>
                             <div className="pb-5">
-                                {comment && React.Children.toArray(
-                                    comment.map((val) => <div className={isComment ? 'showComment' : 'notShowComment'}><Comments comment={val} /></div>)
+                                {comment && isComment && React.Children.toArray(
+                                    comment.map((val) => <div className={'showComment'}><Comments comment={val} /></div>)
                                 )}
                                 <div>
                                     <div className="flex items-center ml-5">

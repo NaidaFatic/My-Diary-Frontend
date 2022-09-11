@@ -1,7 +1,7 @@
 import { IconEdit, IconHeart, IconMessage2, IconUser, IconSend } from "@tabler/icons";
 import React, { useState, useEffect, useRef } from 'react';
 import { Ajax } from "../utils/axios";
-import { IconLoader2 } from '@tabler/icons';
+import loadingGif from "../img/loading.gif";
 import { Comments } from "../components/Comments";
 import { Formik, Form } from "formik";
 import { TextField } from "../components/TextField";
@@ -99,9 +99,7 @@ function ProfilePost(props) {
 
     if (loading || !props.post) {
         return (
-            <main>
-                <IconLoader2 className="m-auto" />
-            </main >
+            <><img src={loadingGif} alt="loading page" width="101" height="70" /></>
         );
     } else {
         return (props.post.private ? <></> :

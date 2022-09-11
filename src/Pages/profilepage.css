@@ -75,8 +75,8 @@
 }
 .user-img-picture,
 .user-img {
-  width: calc(3.5rem);
-  height: calc(3.5rem);
+  width: calc(3rem);
+  height: calc(3rem);
   background: #ebebeb;
   border-radius: 100%;
   margin-inline: 10px;
