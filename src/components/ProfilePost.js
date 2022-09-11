@@ -251,11 +251,11 @@ function ProfilePost(props) {
                                                         <div className="post-comment flex">
                                                             <div className="text-center">
                                                                 <IconHeart className={`ml-0 ${liked ? 'like' : 'dislike'}`} onClick={like} />
-                                                                <small className="text-gray-500">{props.post.likes.length}</small>
+                                                                {props.post.likes.length && <small className="text-gray-500">{props.post.likes.length}</small>}
                                                             </div>
                                                             <div className="text-center">
                                                                 <IconMessage2 className={isComment ? 'comment' : 'uncomment'} onClick={showComment} />
-                                                                <small className="text-gray-500">{comment.length}</small>
+                                                                {comment.length && <small className="text-gray-500">{comment.length}</small>}
                                                             </div>
                                                         </div>
                                                         <div className={`mb-5 ${isComment ? 'showComment' : 'notShowComment'}`}>

@@ -112,13 +112,15 @@ export const Post = (props) => {
                                 <p>{props.post.description}</p>
                             </div>
                             <div className="post-comment flex">
-                                <div className="text-center">
-                                    <IconHeart className={`ml-0 ${liked ? 'like' : 'dislike'}`} onClick={like} />
-                                    <small className="text-gray-500">{props.post.likes.length}</small>
-                                </div>
-                                <div className="text-center">
-                                    <IconMessage2 className={isComment ? 'comment' : 'uncomment'} onClick={showComment} />
-                                    <small className="text-gray-500">{comment.length}</small>
+                                <div className="post-comment flex">
+                                    <div className="text-center">
+                                        <IconHeart className={`ml-0 ${liked ? 'like' : 'dislike'}`} onClick={like} />
+                                        {props.post.likes.length && <small className="text-gray-500">{props.post.likes.length}</small>}
+                                    </div>
+                                    <div className="text-center">
+                                        <IconMessage2 className={isComment ? 'comment' : 'uncomment'} onClick={showComment} />
+                                        {comment.length && <small className="text-gray-500">{comment.length}</small>}
+                                    </div>
                                 </div>
                             </div>
                             <div className="pb-5">
