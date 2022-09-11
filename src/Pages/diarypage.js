@@ -175,7 +175,7 @@ function DiaryPage(props) {
         } else {
             return (
                 <main className="pt:10">
-                    <ToastContainer />
+
                     <div className="profile">
                         <h4 className="ml-5 font-bold flex">This is private diary profile <IconLock className="mt-1" /></h4>
                         <section>

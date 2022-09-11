@@ -108,6 +108,7 @@ input[type="button"]:focus {
 form .user-img-picture {
   width: calc(5rem);
   height: calc(5rem);
+  cursor: pointer;
 }
 
 .post-pic-container {

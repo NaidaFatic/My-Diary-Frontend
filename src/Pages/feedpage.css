@@ -48,11 +48,13 @@
 .like {
   fill: red;
   color: red;
+  margin: 0px;
 }
 
 .dislike {
   fill: none;
   color: black;
+  margin: 0px;
 }
 
 .comment {

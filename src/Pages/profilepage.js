@@ -167,7 +167,7 @@ function ProfilePage(props) {
     } else {
         return (
             <main className="pt:20">
-                <ToastContainer />
+
                 <div className="profile">
                     <section>
                         <div className="flex flex-wrap items-start">

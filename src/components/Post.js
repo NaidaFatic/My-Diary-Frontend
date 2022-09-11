@@ -112,8 +112,14 @@ export const Post = (props) => {
                                 <p>{props.post.description}</p>
                             </div>
                             <div className="post-comment flex">
-                                <IconHeart className={`ml-0 ${liked ? 'like' : 'dislike'}`} onClick={like} />
-                                <IconMessage2 className={isComment ? 'comment' : 'uncomment'} onClick={showComment} />
+                                <div className="text-center">
+                                    <IconHeart className={`ml-0 ${liked ? 'like' : 'dislike'}`} onClick={like} />
+                                    <small className="text-gray-500">{props.post.likes.length}</small>
+                                </div>
+                                <div className="text-center">
+                                    <IconMessage2 className={isComment ? 'comment' : 'uncomment'} onClick={showComment} />
+                                    <small className="text-gray-500">{comment.length}</small>
+                                </div>
                             </div>
                             <div className="pb-5">
                                 {comment && isComment && React.Children.toArray(

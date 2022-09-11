@@ -256,8 +256,14 @@ function ProfilePostPrivate(props) {
                                                         <p>{props.post.description}</p>
                                                         <hr></hr>
                                                         <div className="post-comment flex">
-                                                            <IconHeart className={`ml-0 ${liked ? 'like' : 'dislike'}`} onClick={like} />
-                                                            <IconMessage2 className={isComment ? 'comment' : 'uncomment'} onClick={showComment} />
+                                                            <div className="text-center">
+                                                                <IconHeart className={`ml-0 ${liked ? 'like' : 'dislike'}`} onClick={like} />
+                                                                <small className="text-gray-500">{props.post.likes.length}</small>
+                                                            </div>
+                                                            <div className="text-center">
+                                                                <IconMessage2 className={isComment ? 'comment' : 'uncomment'} onClick={showComment} />
+                                                                <small className="text-gray-500">{comment.length}</small>
+                                                            </div>
                                                         </div>
                                                         <div className={`mb-5 ${isComment ? 'showComment' : 'notShowComment'}`}>
                                                             <div className="flex items-center ml-5">
