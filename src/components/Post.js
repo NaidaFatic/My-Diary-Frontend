@@ -12,10 +12,12 @@ export const Post = (props) => {
     const [owner, setOwner] = useState();
     const [user, setUser] = useState();
     const [loading, setLoading] = useState();
+    const [post, setPost] = useState();
     const [liked, setLiked] = useState(false);
     const [isComment, setIsComment] = useState(false);
     const [comment, setComment] = useState();
     const [addComments, setAddComments] = useState();
+    const [ajaxResponse, setAjaxResponse] = useState(false);
     const inputMessage = useRef(null);
     var decoded = jwt_decode(localStorage.getItem('token'));
 
@@ -31,9 +33,13 @@ export const Post = (props) => {
             setLoading(false);
         });
 
-        if (props.post.likes.includes(decoded.uid)) {
-            setLiked(true);
-        }
+        Ajax.get('posts/post/' + props.post._id, null, function (response) {
+            setPost(response);
+            setLoading(false);
+            if (response.likes.includes(decoded.uid)) {
+                setLiked(true);
+            }
+        });
 
         Ajax.get('comments/post/' + props.post._id, null, function (response) {
             setComment(response);
@@ -42,16 +48,16 @@ export const Post = (props) => {
             setOwner();
             setUser();
         };
-    }, [setLoading, addComments]);
+    }, [setLoading, addComments, ajaxResponse]);
 
 
     const like = (e) => {
 
         if (liked) {
-            Ajax.put('posts/unlikes/' + props.post._id, { "id": decoded.uid }, function (response) { console.log(response) });
+            Ajax.put('posts/unlikes/' + props.post._id, { "id": decoded.uid }, function (response) { setAjaxResponse(response) });
             setLiked(false);
         } else {
-            Ajax.put('posts/likes/' + props.post._id, { "id": decoded.uid }, function (response) { console.log(response) });
+            Ajax.put('posts/likes/' + props.post._id, { "id": decoded.uid }, function (response) { setAjaxResponse(response) });
             setLiked(true);
         }
 
@@ -115,7 +121,7 @@ export const Post = (props) => {
                                 <div className="post-comment flex">
                                     <div className="text-center">
                                         <IconHeart className={`ml-0 ${liked ? 'like' : 'dislike'}`} onClick={like} />
-                                        {props.post.likes && <small className="text-gray-500">{props.post.likes.length}</small>}
+                                        {post && <small className="text-gray-500">{post.likes.length}</small>}
                                     </div>
                                     <div className="text-center">
                                         <IconMessage2 className={isComment ? 'comment' : 'uncomment'} onClick={showComment} />

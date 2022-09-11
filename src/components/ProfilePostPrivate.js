@@ -11,6 +11,7 @@ function ProfilePostPrivate(props) {
     const [showModal, setShowModal] = useState(false);
     const [showModalPost, setShowModalPost] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [post, setPost] = useState();
     const [liked, setLiked] = useState(false);
     const [comment, setComment] = useState();
     const [editing, setEditing] = useState(false);
@@ -28,9 +29,13 @@ function ProfilePostPrivate(props) {
         else { setShowModalPost(false); }
         setProfileOwner((decoded.uid === props.id));
 
-        if (props.post.likes.includes(decoded.uid)) {
-            setLiked(true);
-        }
+        Ajax.get('posts/post/' + props.post._id, null, function (response) {
+            setPost(response);
+            setLoading(false);
+            if (response.likes.includes(decoded.uid)) {
+                setLiked(true);
+            }
+        });
 
         if (props.post._id) {
             Ajax.get('comments/post/' + props.post._id, null, function (response) {
@@ -46,10 +51,6 @@ function ProfilePostPrivate(props) {
 
     }, [showModalPost]);
 
-    var backgroundImageStyle = {
-        backgroundImage: `url(${props.post.picture})`
-    };
-
     var backgroundImageStyleProfile = {
         backgroundImage: `url(${props.owner.profilePic})`
     };
@@ -57,10 +58,10 @@ function ProfilePostPrivate(props) {
     const like = (e) => {
 
         if (liked) {
-            Ajax.put('posts/unlikes/' + props.post._id, { "id": decoded.uid }, function (response) { console.log(response) });
+            Ajax.put('posts/unlikes/' + props.post._id, { "id": decoded.uid }, function (response) { setAjaxResponse(response) });
             setLiked(false);
         } else {
-            Ajax.put('posts/likes/' + props.post._id, { "id": decoded.uid }, function (response) { console.log(response) });
+            Ajax.put('posts/likes/' + props.post._id, { "id": decoded.uid }, function (response) { setAjaxResponse(response) });
             setLiked(true);
         }
 
@@ -91,29 +92,31 @@ function ProfilePostPrivate(props) {
         });
     }
 
-    if (props.post.picture) {
-        var backgroundImageStyle = {
-            backgroundImage: `url(${props.post.picture})`
-        }
-    } else {
-        var backgroundImageStyle = {
-            backgroundColor: `${props.post.color}`
+    if (post) {
+        if (post.picture) {
+            var backgroundImageStyle = {
+                backgroundImage: `url(${post.picture})`
+            }
+        } else {
+            var backgroundImageStyle = {
+                backgroundColor: `${post.color}`
+            }
         }
     }
 
-    if (loading || !props.post) {
+    if (loading || !post) {
         return (
             <><img src={loadingGif} alt="loading page" width="101" height="70" /></>
         );
     } else {
-        return (props.post.private ?
+        return (post.private ?
             <div>
                 <div className="flex flex-col postWrap" style={backgroundImageStyle} onClick={() => setShowModalPost(true)} >
                     <p className="postName grow">
-                        {props.post.description}
+                        {post.description}
                     </p>
                 </div>
-                <p className="postDescription">{props.post.name}</p>
+                <p className="postDescription">{post.name}</p>
                 {/* {
                     showModal ? (
                         <>
@@ -202,16 +205,16 @@ function ProfilePostPrivate(props) {
                                         {/*body*/}
                                         <div className="relative p-6 modal">
                                             <div className="md:flex flex-none">
-                                                {props.post.picture &&
+                                                {post.picture &&
                                                     <div className="post-pic-container">
-                                                        <img src={props.post.picture} style={{ width: '100%' }} className="ml-0" alt="Post image" />
+                                                        <img src={post.picture} style={{ width: '100%' }} className="ml-0" alt="Post image" />
                                                     </div>
                                                 }
                                                 {editing ?
                                                     <div className="md:ml-5" style={{ width: '-webkit-fill-available' }}>
                                                         <Formik
                                                             enableReinitialize='true'
-                                                            initialValues={{ name: props.post.name, description: props.post.description }}
+                                                            initialValues={{ name: post.name, description: post.description }}
                                                             onSubmit={(values, actions) => {
                                                                 updatePost(values, actions)
                                                             }}
@@ -250,15 +253,15 @@ function ProfilePostPrivate(props) {
                                                     :
                                                     <div className="md:ml-5" style={{ width: '-webkit-fill-available' }}>
                                                         <div className="flex justify-between">
-                                                            <h3>{props.post.name}</h3>
+                                                            <h3>{post.name}</h3>
                                                             {profileOwner && <IconEdit className="editPost flex-none self-end" onClick={() => setEditing(true)} />}
                                                         </div>
-                                                        <p>{props.post.description}</p>
+                                                        <p>{post.description}</p>
                                                         <hr></hr>
                                                         <div className="post-comment flex">
                                                             <div className="text-center">
                                                                 <IconHeart className={`ml-0 ${liked ? 'like' : 'dislike'}`} onClick={like} />
-                                                                {props.post && <small className="text-gray-500">{props.post.likes.length}</small>}
+                                                                {post && <small className="text-gray-500">{post.likes.length}</small>}
                                                             </div>
                                                             <div className="text-center">
                                                                 <IconMessage2 className={isComment ? 'comment' : 'uncomment'} onClick={showComment} />
