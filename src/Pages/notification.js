@@ -36,14 +36,13 @@ function NotificationPage(props) {
         Ajax.get('posts/owner/' + params.id, null, function (response) {
             setPosts(response);
         });
-
+        setSearchUsers(null);
         axios({
             method: 'GET',
-            url: 'https://my-diary-backend-api.herokuapp.com/api/owners/search',
+            url: 'http://localhost:8080/api/owners/search',
             params: { name: searchText },
             cancelToken: new axios.CancelToken(c => cancel = c)
         }).then(response => {
-            console.log(searchText)
             setSearchUsers(response.data)
         }).catch(function (thrown) {
             if (axios.isCancel(thrown)) {
