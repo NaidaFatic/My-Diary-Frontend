@@ -49,6 +49,7 @@ function FeedPage(props) {
     };
 
     if (loading || !items || !user.friends) {
+        console.log(items)
         return (
             <main>
 

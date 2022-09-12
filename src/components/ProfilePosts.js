@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from "react-router-dom";
 import { Ajax } from "../utils/axios";
-import loadingGif from "../img/loading.gif";
 import ProfilePost from "../components/ProfilePost";
 import ProfilePostPrivate from "../components/ProfilePostPrivate";
 
@@ -27,13 +26,15 @@ function ProfilePosts(props) {
         setChanged(!changed);
     }
 
-    if (loading || !props.owner) {
+    if (props.notFriends) {
         return (
-            <><img src={loadingGif} alt="loading page" width="101" height="70" /></>
+
+            < h4 className='m-5' > Add {props.notFriends} as a friend in order to see the posts</h4 >
         );
-    } if (props.notFriends) {
+    }
+    else if (loading || !props.owner) {
         return (
-            <><p>Add {props.notFriends} as a friend in order to see the posts</p></>
+            <></>
         );
     } else {
         return (

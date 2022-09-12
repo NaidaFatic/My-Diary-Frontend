@@ -39,7 +39,7 @@ function NotificationPage(props) {
 
         axios({
             method: 'GET',
-            url: 'https://my-diary-backend-api.herokuapp.com/api/owners/search',
+            url: 'http://localhost:8080/api/owners/search',
             params: { name: searchText },
             cancelToken: new axios.CancelToken(c => cancel = c)
         }).then(response => {
