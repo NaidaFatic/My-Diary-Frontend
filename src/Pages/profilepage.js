@@ -162,7 +162,7 @@ function ProfilePage(props) {
 
     if (loading || !owner) {
         return (
-            <><img src={loadingGif} alt="loading page" width="101" height="70" /></>
+            <main ><img src={loadingGif} alt="loading page" width="101" height="70" /></main >
         );
     } else {
         return (
