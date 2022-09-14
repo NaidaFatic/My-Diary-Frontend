@@ -10,6 +10,7 @@ import jwt_decode from "jwt-decode";
 function ProfilePost(props) {
     const [showModal, setShowModal] = useState(false);
     const [post, setPost] = useState();
+    const [user, setUser] = useState();
     const [showModalPost, setShowModalPost] = useState(false);
     const [loading, setLoading] = useState(false);
     const [liked, setLiked] = useState(false);
@@ -28,6 +29,11 @@ function ProfilePost(props) {
         if (props.openModal === props.post._id) { setShowModalPost(true); }
         else { setShowModalPost(false); }
         setProfileOwner((decoded.uid === props.id));
+
+        Ajax.get('owners/' + decoded.uid, null, function (response) {
+            setUser(response);
+            setLoading(false);
+        });
 
         Ajax.get('posts/post/' + props.post._id, null, function (response) {
             setPost(response);
@@ -64,9 +70,11 @@ function ProfilePost(props) {
         }
     }
 
-    var backgroundImageStyleProfile = {
-        backgroundImage: `url(${props.owner.profilePic})`
-    };
+    if (user) {
+        var backgroundImageStyleProfile = {
+            backgroundImage: `url(${user.profilePic})`
+        };
+    }
 
     const like = (e) => {
 
@@ -268,7 +276,7 @@ function ProfilePost(props) {
                                                         </div>
                                                         <div className={`mb-5 ${isComment ? 'showComment' : 'notShowComment'}`}>
                                                             <div className="flex items-center ml-5">
-                                                                {props.owner.profilePic ? <div className="user-img-picture flex-none" style={backgroundImageStyleProfile} /> : <IconUser className="user-img flex-none" />}
+                                                                {user ? <div className="user-img-picture flex-none" style={backgroundImageStyleProfile} /> : <IconUser className="user-img flex-none" />}
                                                                 <input type="text" name="comment" ref={inputMessage} />
                                                                 <IconSend onClick={addComment} />
                                                             </div>
