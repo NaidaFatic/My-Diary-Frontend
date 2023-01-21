@@ -1,4 +1,4 @@
-version: '1'
+version: "2"
 services:
   nginx-react:
     image: reactapp:latest
@@ -8,5 +8,5 @@ services:
       dockerfile: Dockerfile
     ports:
       - 80:80
-    enviroment:
-      NODE_ENV: production 
+    environment:
+      NODE_ENV: production
